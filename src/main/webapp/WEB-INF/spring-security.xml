@@ -1,0 +1,62 @@
+<bean:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:bean="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <http auto-config="true">
+
+        <intercept-url pattern="/registration**" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/createAccount**" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/admin**" access="ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/welcome**" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+
+
+        <!-- access denied page -->
+        <access-denied-handler error-page="/403" />
+        <form-login
+                login-page="/login"
+                login-processing-url="/j_spring_security_check"
+                default-target-url="/admin"
+                authentication-failure-url="/login?error"
+                authentication-success-handler-ref="loginSucessHandler"
+                username-parameter="username"
+                password-parameter="password" />
+        <anonymous />
+
+        <logout logout-success-url="/login?logout"  />
+
+        <!-- enable csrf protection -->
+        <csrf/>
+    </http>
+
+
+    <!-- Select users  -->
+       <authentication-manager alias="authenticationManager" >
+       <!-- authentication from database with username-->
+            <!--<authentication-provider>
+                <user-service>
+                    <user name="vladm" password="123456" authorities="ROLE_ADMIN" />
+                </user-service>
+            </authentication-provider>-->
+
+       <!-- authentication from database with sql xml-->
+           <!-- <authentication-provider>
+               <jdbc-user-service data-source-ref="dataSource"
+                                  users-by-username-query="select username,password, enabled from users where username=?"
+                                  authorities-by-username-query="select username, r.role from users u JOIN roles r ON u.role= r.id where u.username = ?;" />
+           </authentication-provider>-->
+
+       <!-- authentication from database-->
+           <authentication-provider user-service-ref="userService">
+       </authentication-provider>
+    </authentication-manager>
+
+    <!--<bean:bean id="loginSucessHandler" class="com.springapp.handler.LoginSucessHandler">
+        <bean:property name="viewUser" value="/welcome*" /> &lt;!&ndash;clearBC12&ndash;&gt;
+        <bean:property name="viewAdmin" value="/admin*" />
+    </bean:bean>-->
+
+</bean:beans>
