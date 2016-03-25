@@ -12,6 +12,7 @@
         <intercept-url pattern="/createAccount**" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/admin**" access="ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/welcome**" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
 
 
         <!-- access denied page -->
@@ -55,8 +56,6 @@
     </authentication-manager>
 
     <!--<bean:bean id="loginSucessHandler" class="com.springapp.handler.LoginSucessHandler">
-        <bean:property name="viewUser" value="/welcome*" /> &lt;!&ndash;clearBC12&ndash;&gt;
-        <bean:property name="viewAdmin" value="/admin*" />
-    </bean:bean>-->
+        </bean:bean>-->
 
 </bean:beans>
