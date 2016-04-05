@@ -17,9 +17,7 @@
   <title>Registration</title>
 
   <style>
-    .error {
-      color: #ff0000;
-    }
+
 
     .errorblock {
       color: #000;
@@ -33,35 +31,63 @@
 </head>
 <body>
 <div id="login-box">
-  <form:form modelAttribute="form" autocomplete="off" action="/registration" method="POST">
-    <form:errors path="*" cssClass="errorblock" element="div" />
-      <table cellpadding="5">
+  <form:form modelAttribute="form" action="/registration" method="POST">
+   <%-- <form:errors path="*" cssClass="errorblock" element="div" />--%>
+      <table cellpadding="2" align="center">
         <thead>
         <tr>
-          <th colspan="2">Enter Information Here</th>
+          <th colspan="3">Enter Information Here</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>First Name</td>
-          <td><input type="text" name="user.firstName" value="" /></td>
-          <td><form:errors path="user.firstName" cssClass="error" /></td>
+          <td width="38%">First Name</td>
+          <td width="35%"><input type="text" name="firstName" value="${form.firstName}"/></td>
+          <td width="27%"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2"><form:errors path="firstName" cssClass="error" /></td>
         </tr>
         <tr>
           <td>Last Name</td>
-          <td><input type="text" name="user.lastName" value="" /></td>
+          <td><input type="text" name="lastName" value="${form.lastName}"/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2"><form:errors path="lastName" cssClass="error" /></td>
         </tr>
         <tr>
           <td>Email</td>
-          <td><input type="text" name="user.email" value="" /></td>
+          <td><input type="text" name="email" value="${form.email}" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2"><form:errors path="email" cssClass="error" /></td>
         </tr>
         <tr>
           <td>User Name</td>
-          <td><input type="text" name="user.username" value=""/></td>
+          <td><input type="text" name="username" value="${form.username}"/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2"><form:errors path="username" cssClass="error" /></td>
         </tr>
         <tr>
           <td>Password</td>
-          <td><input type="password" name="user.password" readonly onfocus="this.removeAttribute('readonly');" /></td>
+          <td><input type="password" name="password" value="${form.password}" readonly onfocus="this.removeAttribute('readonly');"/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2"><form:errors path="password" cssClass="error" /></td>
+        </tr>
+        <tr>
+          <td>Confirm Password</td>
+          <td><input type="password" name="confirmPassword" value="${form.confirmPassword}" readonly onfocus="this.removeAttribute('readonly');"/></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2"><form:errors path="confirmPassword" cssClass="error" /></td>
         </tr>
         <tr>
           <td><input name="submit" type="submit" value="Register" /></td>
@@ -73,14 +99,7 @@
         </tbody>
       </table>
 
-    <script>
-   //   createAccount.setAttribute("autocomplete", "off" );
-      //createAccount.setAttribute("autocomplete", "off" );
-     /* function submitForm() {
-        document.contact-form.submit();
-        document.contact-form.reset();
-      }*/
-    </script>
+
   </form:form>
 
 </div>

@@ -2,9 +2,6 @@ package com.springapp.controller;
 
 import com.springapp.model.User;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * Created with InteliJ IDEA
@@ -16,16 +13,12 @@ public class UserForm {
     /** user entity */
     private User user;
 
-    @Size(min=2, max=30, message = "Your password must between 1 and 30 characters")
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String username;
-
     private String password;
+    private String confirmPassword;
 
 
 
@@ -74,11 +67,19 @@ public class UserForm {
     }
 
     public String getPassword() {
-        return username;
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     @Override

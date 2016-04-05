@@ -2,6 +2,7 @@ package com.springapp.controller;
 import com.springapp.model.Role;
 import com.springapp.model.User;
 import com.springapp.service.IUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,9 @@ public class MainController extends AbstractController{
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private ValidateForm validateForm;
 
     @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
     public ModelAndView welcomePage() {
@@ -83,22 +87,25 @@ public class MainController extends AbstractController{
     @RequestMapping(value = "/registration",  method =  RequestMethod.POST)
     public ModelAndView registration(@Valid @ModelAttribute("form")  UserForm userForm,
                                      ModelMap model ,BindingResult result) {
+
+       validateForm.validateForm(userForm, result);
+
         if (result.hasErrors()) {
             log.info("########## Field has errors ... ");
-            return new ModelAndView("/registration", model);
+            model.put("form", userForm);
+            return new ModelAndView("createAccount", model);
         }
 
         log.info("########## Saving user ... ");
 
-        /*User user = new User();
-        user.setUsername(userForm.getUsername());*/
+        // User user = userForm.getUser();
+        User user = new User();
+        BeanUtils.copyProperties(userForm, user);
 
-        User user = userForm.getUser();
 
         Role role = new Role();
         role.setId(1L);
         user.setRole(role);
-
 
         userService.save(user);
         return new ModelAndView("successRegistration", model);
@@ -111,7 +118,7 @@ public class MainController extends AbstractController{
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration(ModelMap model) {
 
-        model.put("user", new User());
+        //model.put("user", new User());
         return new ModelAndView("createAccount", model);
 
     }
