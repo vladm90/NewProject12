@@ -104,7 +104,7 @@ public class MainController extends AbstractController{
 
 
         Role role = new Role();
-        role.setId(1L);
+        role.setId(2L);
         user.setRole(role);
 
         userService.save(user);
