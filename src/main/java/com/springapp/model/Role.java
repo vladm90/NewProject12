@@ -13,17 +13,17 @@ import java.util.List;
 @Table(name = "ROLES")
 public class Role {
 
-
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
 
+    @Column(name = "ENABLED",nullable = false)
+    private Boolean enabled = Boolean.TRUE;
+
     @Column(name = "ROLE", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String role;
 
-    @OneToMany(mappedBy = "role")
-    private List<User> users;
 
     public Long getId() {
         return id;
@@ -31,6 +31,14 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getRole() {
@@ -41,11 +49,4 @@ public class Role {
         this.role = role;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }

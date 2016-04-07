@@ -1582,11 +1582,22 @@ pre code {
     overflow-y: scroll
 }
 
+.container_center{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1470px
+
+}
+
+
 .container {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
-    margin-left: auto
+    margin-left: auto;
+    margin-top: 15px;
 }
 
 @media (min-width: 768px) {
@@ -2050,6 +2061,7 @@ pre code {
     }
 
     .col-md-12 {
+        margin-top:50px;
         width: 100%
     }
 

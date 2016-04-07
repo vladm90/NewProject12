@@ -1,7 +1,9 @@
 package com.springapp.controller;
 import com.springapp.model.Role;
 import com.springapp.model.User;
+import com.springapp.service.IRoleService;
 import com.springapp.service.IUserService;
+import com.springapp.service.impl.RoleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -11,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +39,9 @@ public class MainController extends AbstractController{
 
     @Autowired
     private ValidateForm validateForm;
+
+    @Autowired
+    private IRoleService roleService;
 
     @RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
     public ModelAndView welcomePage() {
@@ -108,7 +115,7 @@ public class MainController extends AbstractController{
         user.setRole(role);
 
         userService.save(user);
-        return new ModelAndView("successRegistration", model);
+        return new ModelAndView("userDetail", model);
 
     }
 
@@ -122,6 +129,66 @@ public class MainController extends AbstractController{
         return new ModelAndView("createAccount", model);
 
     }
+
+
+    @RequestMapping(value = "/admin/addUser",  method =  RequestMethod.GET)
+    public ModelAndView addUser(@ModelAttribute("form")  UserForm userForm,
+                                     ModelMap model ,BindingResult result) {
+        log.info("########## Saving new user ... ");
+
+        //UserForm userForm = new UserForm();
+
+        List<String> role = new ArrayList<String>();
+        role.add("ROLE_ADMIN");
+        role.add("ROLE_USER");
+
+        model.put("form", userForm);
+        model.put("role", role);
+
+
+        return new ModelAndView("addUser", model);
+    }
+
+    @RequestMapping(value = "/userDetail",  method =  RequestMethod.POST)
+    public ModelAndView userDetail(@Valid @ModelAttribute("form") UserForm userForm,
+                                     ModelMap model ,BindingResult result) {
+
+        validateForm.validateForm(userForm, result);
+
+        if (result.hasErrors()) {
+            log.info("########## Field has errors ... ");
+
+            List<String> role = new ArrayList<String>();
+            role.add("ROLE_ADMIN");
+            role.add("ROLE_USER");
+
+            model.put("form", userForm);
+            model.put("role", role);
+
+            return new ModelAndView("/addUser", model);
+        }
+
+        log.info("########## Saving user ... ");
+
+
+
+
+        User user = new User();
+        Role role = roleService.findByRole(userForm.getRole());
+
+        BeanUtils.copyProperties(userForm, user);
+        user.setRole(role);
+
+        userService.save(user);
+        return new ModelAndView("userDetail", model);
+
+    }
+
+
+
+
+
+
 
     //for 403 access denied page
     @RequestMapping(value = "/403", method = RequestMethod.GET)
