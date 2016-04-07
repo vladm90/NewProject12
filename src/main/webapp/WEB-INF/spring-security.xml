@@ -10,6 +10,7 @@
 
         <intercept-url pattern="/registration**" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/createAccount**" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/login" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/admin**" access="ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/welcome**" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>

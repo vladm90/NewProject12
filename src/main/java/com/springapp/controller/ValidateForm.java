@@ -45,25 +45,26 @@ public class ValidateForm implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "errors.required.field");
 
-        if (userForm.getFirstName().length() <= 2 && !userForm.getFirstName().equals("")) {
+        if (userForm.getFirstName() != null && userForm.getFirstName().length() <= 2 && !userForm.getFirstName().equals("")) {
             errors.rejectValue("firstName", "errors.required.field.parameter" , new Object[] {2, null, locale}, "min");
         }
-        if (userForm.getLastName().length() <= 2 && !userForm.getLastName().equals("")) {
+        if (userForm.getLastName() != null && userForm.getLastName().length() <= 2 && !userForm.getLastName().equals("")) {
             errors.rejectValue("lastName", "errors.required.field.parameter" , new Object[] {2, null, locale}, "min");
         }
-        if (userForm.getUsername().length() < 4 && !userForm.getUsername().equals("")) {
+        if (userForm.getUsername() != null && userForm.getUsername().length() < 4 && !userForm.getUsername().equals("")) {
             errors.rejectValue("username", "errors.required.field.parameter" , new Object[] {4, null, locale}, "min");
         }
-        if (userForm.getPassword().length() < 8 && !userForm.getPassword().equals("")) {
+        if (userForm.getPassword() != null && userForm.getPassword().length() < 8 && !userForm.getPassword().equals("")) {
             errors.rejectValue("password", "errors.required.field.parameter" , new Object[] {8, null, locale}, "min");
         }
 
-        if (!EmailValidator.getInstance().isValid(userForm.getEmail()) && !userForm.getLastName().equals("")) {
+        if (userForm.getEmail() != null && !EmailValidator.getInstance().isValid(userForm.getEmail()) && !userForm.getLastName().equals("")) {
             errors.rejectValue("email", "errors.email");
         }
 
-        if( !userForm.getPassword().equals(userForm.getConfirmPassword())){
+        if(userForm.getPassword() != null && !userForm.getPassword().equals(userForm.getConfirmPassword())){
             errors.rejectValue("password", "error.password");
+            errors.rejectValue("confirmPassword", "error.password");
         }
 
 

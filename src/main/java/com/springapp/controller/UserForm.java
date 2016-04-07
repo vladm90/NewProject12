@@ -19,6 +19,7 @@ public class UserForm {
     private String username;
     private String password;
     private String confirmPassword;
+    private String role;
 
 
 
@@ -80,6 +81,14 @@ public class UserForm {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

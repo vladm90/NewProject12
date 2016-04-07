@@ -265,8 +265,8 @@ table.dataTable, table.dataTable th, table.dataTable td {
 }
 
 .dataTables_wrapper {
-    margin-top: 50px;
-    /*position: relative;*/
+    /*margin-top: 0px;*/
+    position: relative;
     clear: both;
     *zoom: 1;
     zoom: 1
