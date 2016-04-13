@@ -8,11 +8,11 @@
 
     <http auto-config="true">
 
-        <intercept-url pattern="/registration**" access="ROLE_ANONYMOUS" requires-channel="http"/>
-        <intercept-url pattern="/createAccount**" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/registration" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/createAccount" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/login" access="ROLE_ANONYMOUS" requires-channel="http"/>
-        <intercept-url pattern="/admin**" access="ROLE_ADMIN" requires-channel="http"/>
-        <intercept-url pattern="/welcome**" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/admin/listUsers" access="ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/user" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
 
 

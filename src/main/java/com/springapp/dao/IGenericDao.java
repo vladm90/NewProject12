@@ -7,16 +7,22 @@ package com.springapp.dao;
  * Time: 18:15
  */
 
+import com.springapp.model.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 
-public interface IGenericDao<T, PK extends Serializable> {
+public interface IGenericDao<T extends BaseEntity, PK extends Serializable> {
 
 
 
     T create(T t);
+
+    T findById(PK pk);
+
+    T update(T t);
 
 
 

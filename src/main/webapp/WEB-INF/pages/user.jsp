@@ -9,13 +9,13 @@
 <%@ include file="/WEB-INF/pages/fragments/header.jsp"%>
 
 
-  <div class="container theme-showcase" role="main"></div>
+<div class="container theme-showcase" role="main">
 
 
-
-  <script></script>
-
+<h1>User Page</h1>
 
 
-  <%@ include file="/WEB-INF/pages/fragments/footer.jsp"%>
+</div>
+
+<%@ include file="/WEB-INF/pages/fragments/footer.jsp"%>
 

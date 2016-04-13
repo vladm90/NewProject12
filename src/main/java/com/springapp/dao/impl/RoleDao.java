@@ -15,25 +15,20 @@ import javax.persistence.*;
 @Repository("roleDao")
 public class RoleDao extends GenericDao<Role, Long> implements IRoleDao {
 
-   /* public RoleDao() {
-        super(Role.class);
-    }*/
-
-    /*@Override
-        public Role findByRole(String role) {
-            Query q = entityManager.createQuery("SELECT 1 FROM Role r WHERE r.role =:role");
-            q.setParameter("role", role);
-
-            return (Role)q.getResultList();
-        }
-    */
-
 
     @Override
+        public Role findByRole(String role) {
+            Query q = entityManager.createQuery("SELECT r FROM Role r WHERE r.role =:role");
+            q.setParameter("role", role);
+
+            return (Role)q.getSingleResult();
+        }
+
+   /* @Override
     public Role findByRole(String role) {
         Query q = entityManager.createNativeQuery("SELECT * FROM roles r WHERE role =:role", Role.class);
         q.setParameter("role", role);
 
         return (Role)q.getSingleResult();
-    }
+    }*/
 }

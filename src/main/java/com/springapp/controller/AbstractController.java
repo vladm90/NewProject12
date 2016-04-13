@@ -28,6 +28,10 @@ public class AbstractController extends MultiActionController {
         return currentUser;
     }
 
+    protected String redirect(String viewName) {
+        return "redirect:" + viewName;
+    }
+
  /*   @ModelAttribute("form")
     public UserForm getRegistrationForm() {
         return new UserForm();

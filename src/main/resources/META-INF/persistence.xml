@@ -6,7 +6,7 @@
             version="1.0">
 
 
-    <persistence-unit name="stagesPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="NewProject" transaction-type="RESOURCE_LOCAL">
         <properties>
             <property name="hibernate.archive.autodetection" value="class" />
 

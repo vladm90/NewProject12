@@ -11,21 +11,21 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ROLES")
-public class Role {
+public class Role extends BaseEntity {
 
-    @Id
+    /*@Id
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "ENABLED",nullable = false)
-    private Boolean enabled = Boolean.TRUE;
+    private Boolean enabled = Boolean.TRUE;*/
 
     @Column(name = "ROLE", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String role;
 
 
-    public Long getId() {
+  /*  public Long getId() {
         return id;
     }
 
@@ -39,7 +39,7 @@ public class Role {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
+    }*/
 
     public String getRole() {
         return role;

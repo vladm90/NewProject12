@@ -1,5 +1,6 @@
 package com.springapp.controller;
 
+import com.springapp.model.BaseEntity;
 import com.springapp.model.User;
 
 
@@ -9,7 +10,7 @@ import com.springapp.model.User;
  * Date: 18.03.2016
  * Time: 11:22
  */
-public class UserForm {
+public class UserForm extends BaseEntity{
     /** user entity */
     private User user;
 

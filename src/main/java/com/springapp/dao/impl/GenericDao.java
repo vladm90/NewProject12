@@ -1,6 +1,7 @@
 package com.springapp.dao.impl;
 
 import com.springapp.dao.IGenericDao;
+import com.springapp.model.BaseEntity;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ import java.util.Map;
  * Time: 18:06
  */
 
-public abstract class GenericDao<T, PK extends Serializable> implements IGenericDao<T, PK> {
+public abstract class GenericDao<T extends BaseEntity, PK extends Serializable> implements IGenericDao<T, PK> {
 
     /** log variable for all child classes */
     protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -66,6 +67,33 @@ public abstract class GenericDao<T, PK extends Serializable> implements IGeneric
         log.info("Entity of type - {} was CREATED, Entity: {}.", persistentClass, t);
 
         return t;
+    }
+
+    @Override
+    public T findById(PK pk) {
+        log.debug("Finding by ID entity of type - {}, ID: {}", persistentClass, pk);
+
+        T t = null;
+
+        try {
+            t = (T) entityManager.find(persistentClass, pk);
+        } catch (NoResultException e) {
+            log.info("No entity of type {} found with id = {} .", persistentClass, pk);
+        }
+
+        return t;
+    }
+
+
+    @Override
+    public T update(T t) {
+        log.debug("Updating entity of type - {}, Entity: {}", persistentClass, t);
+
+        T updatedEntity = (T) entityManager.merge(t);
+
+        log.info("Entity of type - {} was UPDATED, Entity: {}.", persistentClass, t);
+
+        return updatedEntity;
     }
 }
 
