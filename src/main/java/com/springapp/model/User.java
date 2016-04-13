@@ -19,15 +19,15 @@ import java.util.Date;
 
 @Entity
 @Table(name = "USERS")
-public class User implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
 
-    @Id
+    /*@Id
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "ENABLED",nullable = false)
-    private Boolean enabled = Boolean.TRUE;
+    private Boolean enabled = Boolean.TRUE;*/
 
     @Column(name = "USERNAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String username;
@@ -57,7 +57,7 @@ public class User implements UserDetails {
 
 
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -71,7 +71,7 @@ public class User implements UserDetails {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
+    }*/
 
     public String getUsername() {
         return username;

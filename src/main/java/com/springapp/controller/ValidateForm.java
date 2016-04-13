@@ -44,6 +44,8 @@ public class ValidateForm implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "errors.required.field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "role", "errors.required.field.role");
+
 
         if (userForm.getFirstName() != null && userForm.getFirstName().length() <= 2 && !userForm.getFirstName().equals("")) {
             errors.rejectValue("firstName", "errors.required.field.parameter" , new Object[] {2, null, locale}, "min");
@@ -66,6 +68,12 @@ public class ValidateForm implements Validator {
             errors.rejectValue("password", "error.password");
             errors.rejectValue("confirmPassword", "error.password");
         }
+
+        if(userForm.getRole().equals("NONE")){
+            errors.rejectValue("role", "errors.required.field.role");
+        }
+
+
 
 
 

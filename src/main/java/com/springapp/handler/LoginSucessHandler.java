@@ -30,7 +30,7 @@ public class LoginSucessHandler extends SimpleUrlAuthenticationSuccessHandler {
         if(role.contains("ROLE_ADMIN")) {
             targetUrl = "/admin";
         } else if(role.contains("ROLE_USER")) {
-            targetUrl = "/welcome";
+            targetUrl = "/user";
         }
         return targetUrl;
     }

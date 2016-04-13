@@ -13,11 +13,11 @@ import java.util.List;
 public interface IUserService extends IGenericService<User, Long> {
 
 
-    public List<User> listUsers();
+    List<User> listUsers();
 
     User getByUsername(User loggedUser, String userName);
 
-   /* @Override
-    User save(User user);*/
+
+
 
 }
