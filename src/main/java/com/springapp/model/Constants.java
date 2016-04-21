@@ -9,6 +9,8 @@ package com.springapp.model;
 public class Constants {
 
     /** usual column length */
+    public static final int COLUMN_HIGH_LENGTH = 2048;
     public static final int COLUMN_NORMAL_LENGTH = 255;
+    public static final int COLUMN_SMALL_LENGTH = 100;
     public static final int COLUMN_CNP_LENGTH = 11;
 }

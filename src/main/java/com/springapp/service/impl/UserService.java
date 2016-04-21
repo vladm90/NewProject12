@@ -35,33 +35,26 @@ public class UserService extends GenericService<User, Long> implements IUserServ
   //  @Autowired
     private IUserDao userDao;
 
-
-   /* public UserService(IGenericDao<User, Long> genericDao) {
-        super(genericDao);
-    }*/
-
     @Autowired(required = true)
     public UserService(IUserDao userDao) {
         super(userDao);
         this.userDao = userDao;
     }
 
-
     @Override
     public List<User> listUsers() {
            return userDao.listUsers();
     }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-        return this.getByUsername(null, username);
+      @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException, DataAccessException {
+        return this.getByEmail(null, email);
     }
 
+
     @Override
-    public User getByUsername(User loggedUser, String username) {
-      //  log.debug("Get user by username={}", userName);
-        User user = userDao.findByUsername(username);
+    public User getByEmail(User loggedUser, String email) {
+        User user = userDao.findByEmail(email);
         return user;
     }
 

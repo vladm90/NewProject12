@@ -15,11 +15,9 @@ public interface IUserDao extends IGenericDao<User, Long>{
 
     public List<User> listUsers();
 
-    //User findByUsername(String userName);
+    User findByEmail(String email);
 
-    User findByUsername(String username, Boolean enabled);
-
-    User findByUsername(String userName);
+    User findByEmail(String email, Boolean enabled);
 
 
 }

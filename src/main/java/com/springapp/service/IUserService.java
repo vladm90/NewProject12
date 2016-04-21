@@ -2,6 +2,8 @@ package com.springapp.service;
 
 import com.springapp.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -15,7 +17,8 @@ public interface IUserService extends IGenericService<User, Long> {
 
     List<User> listUsers();
 
-    User getByUsername(User loggedUser, String userName);
+    User getByEmail(User loggedUser, String email);
+
 
 
 

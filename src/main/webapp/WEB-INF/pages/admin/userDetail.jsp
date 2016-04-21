@@ -52,10 +52,6 @@
         <div class="col-md-3">${user.email}</div>
       </div>
 
-      <div class="row">
-        <label class="col-md-3">Username</label>
-        <div class="col-md-3">${user.username}</div>
-      </div>
 
       <div class="row">
         <label class="col-md-3">Role</label>
