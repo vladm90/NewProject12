@@ -1,16 +1,24 @@
 package com.springapp.controller;
+import com.springapp.handler.FBConnection;
+import com.springapp.handler.FBGraph;
 import com.springapp.model.Role;
 import com.springapp.model.User;
 import com.springapp.service.IRoleService;
 import com.springapp.service.IUserService;
 import com.springapp.service.impl.RoleService;
+import com.springapp.service.impl.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,9 +30,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with InteliJ IDEA
@@ -46,38 +62,111 @@ public class MainController extends AbstractController{
     private IRoleService roleService;
 
 
-    @RequestMapping(value = "/user" , method = RequestMethod.GET)
-    public ModelAndView user(ModelMap model) {
+    @RequestMapping(value =  "/test" , method = RequestMethod.GET)
+    public ModelAndView tet(ModelMap model, HttpServletRequest req, HttpServletResponse res) {
 
-        return new ModelAndView("/user", model);
+
+        return new ModelAndView("/account/login", model);
     }
 
+    @RequestMapping(value = {"/", "/shop"} , method = RequestMethod.GET)
+    public ModelAndView shop(ModelMap model, HttpServletRequest req, HttpServletResponse res) {
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView adminPage(ModelMap model) {
-
-        return new ModelAndView("admin", model);
-
-    }
-
-    @RequestMapping(value = "/admin/listUsers", method = RequestMethod.GET)
-    public ModelAndView listUsers(ModelMap model) {
-
-        List<User> user = userService.listUsers();
-
-        model.put("users", user);
         User loggedUser = getCurrentUser();
+        model.put("loggedUser", loggedUser);
 
-        return new ModelAndView("admin/listUsers", model);
-
+        return new ModelAndView("/shop/index", model);
     }
+
+    @RequestMapping(value = "/facebookLogin" , method = RequestMethod.GET)
+    public ModelAndView facebookLogin(ModelMap model,String code,
+                                 HttpServletRequest req, HttpServletResponse res) {
+
+
+        FBConnection fbConnection = new FBConnection();
+        String redirectNewAccount = fbConnection.getFBAuthUrl();
+
+        return new ModelAndView(redirect(redirectNewAccount), model);
+    }
+
+    @RequestMapping(value = "/Facebook_Login/fbhome" , method = RequestMethod.GET)
+    public ModelAndView facebook(ModelMap model,@RequestParam(value = "code", required = false) String code,
+                             HttpServletRequest req, HttpServletResponse res)
+                             throws ServletException, IOException {
+
+        if (code == null || code.equals("")) {
+            throw new RuntimeException("ERROR: Didn't get code parameter in callback.");
+        }
+        FBConnection fbConnection = new FBConnection();
+        String accessToken = fbConnection.getAccessToken(code);
+
+        FBGraph fbGraph = new FBGraph(accessToken);
+        String graph = fbGraph.getFBGraph();
+        Map<String, String> fbProfileData = fbGraph.getGraphData(graph);
+
+        model.put("fbProfileData", fbProfileData);
+
+        User user = userService.getByEmail(null, fbProfileData.get("email").toString());
+
+        if(user == null){
+            return new ModelAndView("/account/changePassword", model);
+        }
+
+        model.put("user", user);
+
+        // Authenticate the user and set the session
+        HttpSession session = req.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", user);
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities()));
+
+
+        return new ModelAndView("redirect:/shop", model);
+    }
+
+
+    @RequestMapping(value = "/account/changePassword" , method = RequestMethod.POST)
+    public ModelAndView changePassword(@ModelAttribute("form") UserFacebook userFacebook,
+                                       ModelMap model,HttpServletRequest req, HttpServletResponse res) {
+
+        //validare parola + parola2
+
+        //check if email exist
+
+        //get data
+        User user = new User();
+        BeanUtils.copyProperties(userFacebook, user);
+
+        user.setFbId(null);
+
+        Role role = new Role();
+        role.setId(2L);
+        user.setRole(role);
+
+        // save
+        userService.save(user);
+
+        model.put("user", user);
+
+
+
+        // Authenticate the user and set the session
+        HttpSession session = req.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", user);
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities()));
+
+
+        return new ModelAndView("redirect:/shop", model);
+    }
+
+
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(ModelMap model,
                               @RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout) {
 
-        if (error != null) model.put("error", "Invalid username and password!");
+        if (error != null) model.put("error", "Invalid email and password!");
         if (logout != null) model.put("msg", "You've been logged out successfully.");
 
         return new ModelAndView("login", model);
@@ -111,150 +200,33 @@ public class MainController extends AbstractController{
         Role role = new Role();
         role.setId(2L);
         user.setRole(role);
-
+ //TODO trebuie sa verific daca exista deja User cu acelasi email si daca merge aceeasi entitate(USER) sa verific pt logare cu facebook , daca exista ID_FB
         userService.save(user);
         return new ModelAndView("userDetail", model);
 
     }
 
 
-    @RequestMapping(value = "/admin/addUser",  method =  RequestMethod.GET)
-    public ModelAndView addUser(@ModelAttribute("form")  UserForm userForm,
-                                     ModelMap model ,BindingResult result) {
-
-        List<String> role = new ArrayList<String>();
-        role.add("ROLE_ADMIN");
-        role.add("ROLE_USER");
-
-        model.put("form", userForm);
-        model.put("role", role);
-
-        return new ModelAndView("/admin/addUser", model);
-    }
-
-    @RequestMapping(value = "/admin/addUser",  method =  RequestMethod.POST)
-    public ModelAndView userDetail(@Valid @ModelAttribute("form") UserForm userForm,
-                                     ModelMap model ,BindingResult result) {
-
-        log.info("########## Validate new user ... ");
-        validateForm.validateForm(userForm, result);
-
-        if (result.hasErrors()) {
-            log.info("########## Field has errors ... ");
-
-            List<String> role = new ArrayList<String>();
-            role.add("ROLE_ADMIN");
-            role.add("ROLE_USER");
-            model.put("role", role);
-
-            return new ModelAndView("/admin/addUser", model);
-        }
-
-        log.info("########## Saving user ... ");
-        User user = new User();
-        Role role = roleService.findByRole(userForm.getRole());
-
-        BeanUtils.copyProperties(userForm, user);
-        user.setRole(role);
-
-        userService.save(user);
-        return new ModelAndView(redirect("/admin/userDetail?userId=" + user.getId()) + "&msg=create", model);
-    }
-
-    @RequestMapping(value = "/admin/userDetail",  method =  RequestMethod.GET)
-    public ModelAndView userDetail(@Valid @ModelAttribute("form") UserForm userForm,
-                                   @RequestParam(value = "userId", required = true) Long userId,
-                                   @RequestParam(value = "msg", required = false) String msg,
-                                   ModelMap model ,BindingResult result) {
-
-        User user = userService.findById(userId);
-        model.put("user", user);
-
-        if(msg != null && msg.equals("create")){
-            model.put("css", "success");
-            model.put("msg", "Userul a fost creat!");
-        } else if (msg != null && msg.equals("update")){
-            model.put("css", "success");
-            model.put("msg", "Userul a fost actualizat!");
-        }
-
-        return new ModelAndView("admin/userDetail", model);
-    }
-
-    @RequestMapping(value = "/admin/updateUser",  method =  RequestMethod.GET)
-    public ModelAndView updateUser(@Valid @ModelAttribute("form") UserForm userForm,
-                                   @RequestParam(value = "userId", required = true) Long userId,
-                                   ModelMap model ,BindingResult result) {
-
-        User user = userService.findById(userId);
-        BeanUtils.copyProperties(user, userForm);
-
-        model.put("form", userForm);
-        model.put("role", getRoleList(userId));
-
-        return new ModelAndView("admin/updateUser", model);
-    }
-
-    @RequestMapping(value = "/admin/updateUser",  method =  RequestMethod.POST)
-    public ModelAndView viewUser(@Valid @ModelAttribute("form") UserForm userForm,
-                                   ModelMap model ,BindingResult result) {
-
-        log.info("########## Validate new user ... ");
-        validateForm.validateForm(userForm, result);
-
-        if (result.hasErrors()) {
-            log.info("########## Field has errors ... ");
-            model.put("role", getRoleList(userForm.getId()) );
-            return new ModelAndView("/admin/updateUser", model);
-        }
-
-        User user = new User();
-        BeanUtils.copyProperties(userForm, user);
-        Role role = roleService.findByRole(userForm.getRole());
-        user.setRole(role);
-
-        user = userService.update(null, user);
-        model.put("user", user);
-
-        return new ModelAndView(redirect("/admin/userDetail?userId=" + user.getId()) + "&msg=update", model);
-    }
-
-
-    public List getRoleList(Long userId){
-        User user = userService.findById(userId);
-        List<String> role = new ArrayList<String>();
-        if (user.getRole().getId() == 1){
-            role.add(user.getRole().getRole());
-            role.add("ROLE_USER");
-        } else {
-            role.add(user.getRole().getRole());
-            role.add("ROLE_ADMIN");
-        }
-
-        return role;
-    }
-
-
-
-        //for 403 access denied page
+        //for 403 access denied page// TREBUIE SA MODIFIC ASTA
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public ModelAndView accesssDenied() {
 
         ModelAndView model = new ModelAndView();
 
         //check if user is login
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       /* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
             
             model.addObject("username", userDetail.getUsername());
 
-        }
+        }*/
 
         model.setViewName("403");
         return model;
 
     }
+
 
 
 

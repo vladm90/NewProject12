@@ -24,7 +24,6 @@
       <tr>
         <th>#</th>
         <th>ENABLED</th>
-        <th>USERNAME</th>
         <th>PASSWORD</th>
         <th>FIRST_NAME</th>
         <th>LAST_NAME</th>
@@ -39,7 +38,6 @@
         <tr>
           <td>${rowCounter.count}</td>
           <td><c:out default="0" value="${(empty user.enabled || not user.enabled)? value : '1'}" /></td>
-          <td>${user.username}</td>
           <td>${user.password}</td>
           <td>${user.firstName}</td>
           <td>${user.lastName}</td>

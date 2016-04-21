@@ -51,27 +51,25 @@ public class UserDao extends GenericDao<User, Long> implements IUserDao{
     }
 
     @Override
-  //  @ReadOnlyConnection
-    public User findByUsername(String userName) {
-        return findByUsername(userName, Boolean.TRUE);
+    public User findByEmail(String email) {
+        return findByEmail(email, Boolean.TRUE);
     }
 
 
     @Override
-  //  @ReadOnlyConnection
-    public User findByUsername(String username, Boolean enabled) {
+    public User findByEmail(String email, Boolean enabled) {
         User user = null;
         try {
-            String sql = "SELECT u FROM User u WHERE u.username=:username" + (enabled != null ? " AND u.enabled=:enabled" : "");
-            Query q = entityManager.createQuery(sql).setParameter("username", username);
+            String sql = "SELECT u FROM User u WHERE u.email=:email" + (enabled != null ? " AND u.enabled=:enabled" : "");
+            Query q = entityManager.createQuery(sql).setParameter("email", email);
             if (enabled != null) {
                 q.setParameter("enabled", enabled);
             }
 
             user = (User) q.getSingleResult();
-            log.info("########## Entity found with userName = {} .", username);
+            log.info("########## Entity found with email = {} .", email);
         } catch (NoResultException e) {
-            log.info("########## No entity found with userName = {} .", username);
+            log.info("########## No entity found with email = {} .", email);
         }
 
         return user;

@@ -21,16 +21,8 @@ import java.util.Date;
 @Table(name = "USERS")
 public class User extends BaseEntity implements UserDetails {
 
-    /*@Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "ENABLED",nullable = false)
-    private Boolean enabled = Boolean.TRUE;*/
-
-    @Column(name = "USERNAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
-    private String username;
+    @Column(name = "EMAIL", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
+    private String email;
 
     @Column(name = "PASSWORD", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String password;
@@ -41,44 +33,39 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "LAST_NAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
-    private String email;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "ROLE")
-   // @Column(name = "ROLE")
     private Role role;
-   // private Role role;
 
     @Column(name = "CREATION_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate = new Date();
 
+    @Column(name = "FB_ID", length = Constants.COLUMN_SMALL_LENGTH, nullable = true)
+    private Long fbId;
+
+    @Column(name = "FB_LOCALE", length = Constants.COLUMN_SMALL_LENGTH, nullable = false)
+    private String fbLocale;
+
+    @Column(name = "FB_GENDER", length = Constants.COLUMN_SMALL_LENGTH, nullable = false)
+    private String fbGender;
+
+    @Column(name = "FB_AGE_RANGE", length = Constants.COLUMN_SMALL_LENGTH, nullable = false)
+    private Long fbAgeRange;
+
+    @Column(name = "FB_LINK", length = Constants.COLUMN_HIGH_LENGTH, nullable = false)
+    private String fbLink;
+
+    @Column(name = "FB_PICTURE", length = Constants.COLUMN_HIGH_LENGTH, nullable = false)
+    private String fbPicture;
+
+    @Column(name = "NEWSLETTER", nullable = false)
+    private Boolean newsletter = Boolean.FALSE;
 
 
-
-    /*public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }*/
 
     public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        return email;
     }
 
     public String getPassword() {
@@ -129,6 +116,61 @@ public class User extends BaseEntity implements UserDetails {
         this.creationDate = creationDate;
     }
 
+    public Long getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(Long fbId) {
+        this.fbId = fbId;
+    }
+
+    public String getFbLocale() {
+        return fbLocale;
+    }
+
+    public void setFbLocale(String fbLocale) {
+        this.fbLocale = fbLocale;
+    }
+
+    public String getFbGender() {
+        return fbGender;
+    }
+
+    public void setFbGender(String fbGender) {
+        this.fbGender = fbGender;
+    }
+
+    public Long getFbAgeRange() {
+        return fbAgeRange;
+    }
+
+    public void setFbAgeRange(Long fbAgeRange) {
+        this.fbAgeRange = fbAgeRange;
+    }
+
+    public String getFbLink() {
+        return fbLink;
+    }
+
+    public void setFbLink(String fbLink) {
+        this.fbLink = fbLink;
+    }
+
+    public String getFbPicture() {
+        return fbPicture;
+    }
+
+    public void setFbPicture(String fbPicture) {
+        this.fbPicture = fbPicture;
+    }
+
+    public Boolean getNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(Boolean newsletter) {
+        this.newsletter = newsletter;
+    }
 
     @Transient
     @Override
@@ -169,7 +211,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public String toString() {
-        return getUsername();
+        return getEmail();
     }
 
 

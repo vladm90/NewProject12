@@ -17,7 +17,6 @@ public class UserForm extends BaseEntity{
     private String firstName;
     private String lastName;
     private String email;
-    private String username;
     private String password;
     private String confirmPassword;
     private String role;
@@ -60,14 +59,6 @@ public class UserForm extends BaseEntity{
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -94,13 +85,12 @@ public class UserForm extends BaseEntity{
 
     @Override
     public String toString() {
-        return "User [firstName=" + getFirstName() + ", lastName=" + getLastName() + ", userName=" + getUsername() + "]";
+        return "User [firstName=" + getFirstName() + ", lastName=" + getLastName() + ", email=" + getEmail() + "]";
     }
 
     public Boolean isEmpty(){
         if( (this.firstName == null || "".equals(this.firstName) ) && ( this.lastName == null || "".equals(this.lastName) ) &&
-                ( this.email == null || "".equals(this.email) ) &&  ( this.username == null || "".equals(this.username) ) &&
-                ( this.password == null || "".equals(this.password) )) return true;
+                ( this.email == null || "".equals(this.email) ) && ( this.password == null || "".equals(this.password) )) return true;
         return false;
 
     }

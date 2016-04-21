@@ -50,16 +50,6 @@
           </div>
         </spring:bind>
 
-        <spring:bind path="username">
-          <div class="form-group ${status.error ? 'has-error' : ''}">
-            <label class="col-md-3 control-label">Username</label>
-            <div class="col-md-6">
-              <form:input path="username" class="form-control" id="username" placeholder="Username" />
-              <form:errors path="username" class="control-label" />
-            </div>
-          </div>
-        </spring:bind>
-
         <spring:bind path="password">
           <div class="form-group ${status.error ? 'has-error' : ''}">
             <label class="col-md-3 control-label">Password</label>

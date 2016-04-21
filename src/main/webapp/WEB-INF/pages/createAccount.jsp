@@ -66,14 +66,6 @@
           <td colspan="2"><form:errors path="email" cssClass="error" /></td>
         </tr>
         <tr>
-          <td>User Name</td>
-          <td><input type="text" name="username" value="${form.username}"/></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td colspan="2"><form:errors path="username" cssClass="error" /></td>
-        </tr>
-        <tr>
           <td>Password</td>
           <td><input type="password" name="password" value="${form.password}" readonly onfocus="this.removeAttribute('readonly');"/></td>
         </tr>
