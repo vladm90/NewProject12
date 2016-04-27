@@ -11,8 +11,8 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class FBConnection {
-    public static final String FB_APP_ID = "spring.social.facebook.appId";
-    public static final String FB_APP_SECRET = "spring.social.facebook.appSecret";
+    public static final String FB_APP_ID = "225673607790275";
+    public static final String FB_APP_SECRET = "ce4af82f02e19c439db7fc012bb279f7";
     public static final String REDIRECT_URI = "http://localhost:8080/Facebook_Login/fbhome";
 
     static String accessToken = "";

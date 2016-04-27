@@ -222,6 +222,7 @@
 	-o-transition-duration:  0.7s;
 	-ms-transition-duration:  0.7s;
 	transition-duration:  0.7s;
+	background: yellow;
 }
 
 .animate-out .sequence-title {
@@ -231,6 +232,7 @@
 	-o-transition-duration: 0.3s;
 	-ms-transition-duration: 0.3s;
 	transition-duration: 0.3s;
+	background: yellow;
 	
 }
 
@@ -292,6 +294,7 @@
 
 .sequence-subtitle {
 	color: black;
+	background: yellow;
 	font:400 26px/30px "Gudea", Arial, sans-serif;
 	color:#707171;
 	width: 40%;
