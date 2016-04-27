@@ -9,8 +9,9 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--<import resource="resources/dao-config.xml" />-->
+
     <import resource="classpath*:/dao-config.xml" />
+    <!--<context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true"/>-->
 
     <context:annotation-config />
 

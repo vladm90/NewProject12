@@ -1525,22 +1525,57 @@ parent's font-size:0
 	width:94px;
 	height:16px;
 	display:inline-block;
-	background: url(../images/sprites/ratings.png) no-repeat;
-	background-position: 0 0;
+	/*background: url(../images/sprites/ratings.png) no-repeat;*/
+
 }
 
 .ratings .ratings-result {
-	height:16px;
-	background: url(../images/sprites/ratings.png) no-repeat;
-	background-position: 0 -16px;
+	/*height:16px;*/
+	/*background: url(../images/sprites/ratings.png) no-repeat;*/
+
 }
 
 .ratings-amount {
 	color:#ccc;
+	/*margin-top:20px;*/
 	font-size:14px;
-	line-height:16px;
+	height:16px;
 	white-space:nowrap;
 }
+.rating {
+	border: none;
+	float: left;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+	margin: 2px;
+	font-size:14px;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: "\f005";
+}
+
+.rating > .half:before {
+	content: "\f089";
+	position: absolute;
+}
+
+.rating > label {
+	color: #ddd;
+	float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 
 /* title for all items */
 .item-name {
@@ -2912,7 +2947,6 @@ select.input-lg {
 }
 
 /* noUiSlider Styles */
-/*noUi-target, have error */
 .noUi-target * {
 -webkit-touch-callout: none;
 -webkit-user-select: none;
@@ -3222,9 +3256,9 @@ select.input-lg {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-	color: #757575;
-	background-color: #e4e2e2;
-	border-color: #e4e2e2;
+	color: #e4e2e2;
+	background-color: #7bae23;
+	border-color: #7bae23;
 }
 
 .pagination > .disabled > span,

@@ -1,14 +1,18 @@
 package com.springapp.controller;
 import com.springapp.handler.FBConnection;
 import com.springapp.handler.FBGraph;
+import com.springapp.model.Product;
+import com.springapp.model.ProductCategoryEnum;
 import com.springapp.model.Role;
 import com.springapp.model.User;
+import com.springapp.service.IProductService;
 import com.springapp.service.IRoleService;
 import com.springapp.service.IUserService;
 import com.springapp.service.impl.RoleService;
 import com.springapp.service.impl.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,15 +37,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with InteliJ IDEA
@@ -59,6 +62,9 @@ public class MainController extends AbstractController{
     private ValidateForm validateForm;
 
     @Autowired
+    private IProductService productService;
+
+    @Autowired
     private IRoleService roleService;
 
 
@@ -70,12 +76,59 @@ public class MainController extends AbstractController{
     }
 
     @RequestMapping(value = {"/", "/shop"} , method = RequestMethod.GET)
-    public ModelAndView shop(ModelMap model, HttpServletRequest req, HttpServletResponse res) {
+    public ModelAndView shop(@RequestParam(value = "page", required = false) Integer page,
+                             ModelMap model, HttpServletRequest req, HttpServletResponse res) {
 
         User loggedUser = getCurrentUser();
         model.put("loggedUser", loggedUser);
 
+        /*PAGINAREA PRODUSELOR*/
+        List<Product> products = productService.getProducts();
+        PagedListHolder<Product> pagedListHolder = new PagedListHolder<Product>(products);
+        pagedListHolder.setPageSize(3);
+        model.put("maxPages", pagedListHolder.getPageCount());
+        if(page==null || page < 1 || page > pagedListHolder.getPageCount()) page = 1;
+
+        model.put("page", page);
+        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
+            pagedListHolder.setPage(0);
+            model.put("product", pagedListHolder.getPageList());
+        }
+        else if(page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page-1);
+            model.put("product", pagedListHolder.getPageList());
+        }
+        System.out.println(req.getRequestedSessionId());
         return new ModelAndView("/shop/index", model);
+    }
+
+    @RequestMapping(value = "/shop/products" , method = RequestMethod.GET)
+    public ModelAndView products(@RequestParam(value = "page", required = false) Integer page,
+                             ModelMap model, HttpServletRequest req, HttpServletResponse res) {
+
+        User loggedUser = getCurrentUser();
+        model.put("loggedUser", loggedUser);
+
+        /*PAGINAREA PRODUSELOR*/
+        List<Product> products = productService.getProducts();
+        PagedListHolder<Product> pagedListHolder = new PagedListHolder<Product>(products);
+        pagedListHolder.setPageSize(9);
+        model.put("maxPages", pagedListHolder.getPageCount());
+        if(page==null || page < 1 || page > pagedListHolder.getPageCount()) page = 1;
+
+        model.put("page", page);
+        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
+            pagedListHolder.setPage(0);
+            model.put("product", pagedListHolder.getPageList());
+        }
+        else if(page <= pagedListHolder.getPageCount()) {
+            pagedListHolder.setPage(page-1);
+            model.put("product", pagedListHolder.getPageList());
+        }
+
+        model.put("productCategoryEnum", Arrays.asList(ProductCategoryEnum.values()));
+
+        return new ModelAndView("/shop/products", model);
     }
 
     @RequestMapping(value = "/facebookLogin" , method = RequestMethod.GET)

@@ -1049,13 +1049,13 @@ only screen and (min-device-pixel-ratio: 1.5) {
 	}
 
 	.ratings {
-		background-image: url(../images/sprites/ratings%402x.png);
+		/*background-image: url(../images/sprites/ratings%402x.png);*/
 		background-size: 94px 32px;
 		-webkit-background-size: 94px 32px;
 	}
 
 	.ratings .ratings-result {
-		background-image: url(../images/sprites/ratings%402x.png);
+		/*background-image: url(../images/sprites/ratings%402x.png);*/
 		background-size: 94px 32px;
 		-webkit-background-size: 94px 32px;
 	}

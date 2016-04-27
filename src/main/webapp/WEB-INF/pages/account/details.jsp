@@ -6,8 +6,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vmotoroiu
-  Date: 19,4.2016
-  Time: 15:37
+  Date: 21.04.2016
+  Time: 17:26
   To change this template use File | Settings | File Templates.
 --%>
 <!DOCTYPE html>
@@ -356,11 +356,14 @@
       <div class="row">
         <div class="col-md-12">
           <header class="content-title">
-            <h1 class="title">Change Password </h1>
-            <h1><img src="${fbProfileData.picture}" alt="${fbProfileData.first_name}" height="60" width="60"> </h1>
+            <h1 class="title">Account Details</h1>
 
-            <h3>Hello ${fbProfileData.first_name} ${fbProfileData.last_name}</h3>
-            <h3> Your email adress is: ${fbProfileData.email}</h3>
+              <%--<c:if test="${not empty user.fbPicture}">--%>
+                <h1><img src="${user.fbPicture}" alt="${user.firstName}" height="60" width="60"> </h1>
+              <%--</c:if>--%>
+
+            <h3>Hello ${user.firstName} ${user.lastName}</h3>
+            <h3> Your email adress is: ${user.email}</h3>
 
             <div class="md-margin"></div><!-- space -->
           </header>
@@ -375,15 +378,7 @@
               <div class="xs-margin"></div>
 
               <form:form id="changePassword" action="/account/changePassword" modelAttribute="form" method='POST'>
-                <input type="hidden" name="email" value="${fbProfileData.email}" />
-                <input type="hidden" name="firstName" value="${fbProfileData.first_name}" />
-                <input type="hidden" name="lastName" value="${fbProfileData.last_name}" />
-                <input type="hidden" name="fbId" value="${fbProfileData.id}" />
-                <input type="hidden" name="fbLocale" value="${fbProfileData.locale}" />
-                <input type="hidden" name="fbGender" value="${fbProfileData.gender}" />
-                <input type="hidden" name="fbAgeRange" value="${fbProfileData.age_range}" />
-                <input type="hidden" name="fbLink" value="${fbProfileData.link}" />
-                <input type="hidden" name="fbPicture" value="${fbProfileData.picture}" />
+
 
                 <div class="input-group">
                   <span class="input-group-addon"><span class="input-icon input-icon-password"></span><span class="input-text">New Password&#42;</span></span>
