@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="p" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="for" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: vmotoroiu
@@ -34,6 +35,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/responsive.css">
   <link rel="stylesheet" href="/css/bootstrap-social.css">
+  <link rel="stylesheet" href="/css/revslider.css">
 
   <!-- Favicon and Apple Icons -->
   <link rel="icon" type="image/png" href="/images/icons/icon.html">
@@ -43,15 +45,40 @@
   <!--- jQuery -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+
+  <!--- Modernizr is for zoom picture end hover select -->
+  <script src="/js/modernizr.custom.js"></script>
+
   <!--[if lt IE 9]>
   <script src="/js/html5shiv.js"></script>
   <script src="/js/respond.min.js"></script>
-
   <![endif]-->
 
-  <style id="custom-style">
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/smoothscroll.js"></script>
+  <script src="/js/retina-1.1.0.min.js"></script>
+  <script src="/js/jquery.placeholder.js"></script>
+  <script src="/js/jquery.hoverIntent.min.js"></script>
+  <script src="/js/twitter/jquery.tweet.min.js"></script>
+  <script src="/js/jquery.flexslider-min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/jflickrfeed.min.js"></script>
+  <script src="/js/jquery.prettyPhoto.js"></script>
+  <script src="/js/jquery.isotope.min.js"></script>
+  <script src="/js/jquery.fitvids.js"></script>
+  <script src="/js/colpick.js"></script>
+  <script src="/js/jquery.elastislide.js"></script>
+  <script src="/js/jquery.mlens-1.3.min.js"></script>
+  <script src="/js/jquery.jscrollpane.min.js"></script>
+  <script src="/js/jquery.nouislider.min.js"></script>
+  <script src="/js/jquery.sequence-min.js"></script>
+  <script src="/js/jquery.themepunch.plugins.min.js"></script>
+  <script src="/js/jquery.themepunch.revolution.min.js"></script>
+  <script src="/js/colpick.js"></script>
 
-  </style>
+
+
+  <style id="custom-style"></style>
 
   <style>
 
@@ -102,6 +129,96 @@
       window.location.hash = '';
     }
   </script>
+
+  <script>
+    $(function() {
+
+      var carouselContainer = $('#product-carousel'),
+              productImg =  $('#product-image');
+
+      carouselContainer.elastislide({
+        orientation : 'vertical',
+        minItems : 2
+
+
+      });
+
+      productImg.mlens({
+        imgSrc: $("#product-image").attr("data-big"),
+        lensShape: "square",
+        lensSize: 150,
+        borderSize: 2,
+        borderColor: "#999",
+        borderRadius: 0
+      });
+
+
+      var oldImg = productImg.attr('src');
+      carouselContainer.find('li').on('mouseover', function() {
+
+        var newImg = $(this).find('a').attr('href');
+
+        productImg.attr({'src': newImg, 'data-big': newImg}).trigger('imagechanged');
+
+      });
+
+      // triggered with custom event
+      productImg.on('imagechanged', function() {
+        productImg.mlens("update", 0 ,{
+          imgSrc: productImg.attr("data-big"),
+          lensShape: "square",
+          lensSize: 150,
+          borderSize: 2,
+          borderColor: "#999"
+        });
+      });
+
+    });
+  </script>
+
+  <script>
+    $(function() {
+
+      // Slider Revolution
+      jQuery('#slider-rev').revolution({
+        delay:5000,
+        startwidth:1170,
+        startheight:600,
+        onHoverStop:"true",
+        hideThumbs:250,
+        navigationHAlign:"center",
+        navigationVAlign:"bottom",
+        navigationHOffset:0,
+        navigationVOffset:12,
+        soloArrowLeftHalign:"left",
+        soloArrowLeftValign:"center",
+        soloArrowLeftHOffset:0,
+        soloArrowLeftVOffset:0,
+        soloArrowRightHalign:"right",
+        soloArrowRightValign:"center",
+        soloArrowRightHOffset:0,
+        soloArrowRightVOffset:0,
+        touchenabled:"on",
+        stopAtSlide:-1,
+        stopAfterLoops:-1,
+        dottedOverlay:"none",
+        fullWidth:"on",
+        shadow:0
+
+      });
+
+    });
+  </script>
+
+  <%--FB COMMENT--%>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=225673607790275";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
 </head>
 
 <body<%-- onload='document.loginForm.email.focus();'--%>>
@@ -317,39 +434,46 @@
               <div id="quick-access">
                 <div class="dropdown-cart-menu-container pull-right">
                   <div class="btn-group dropdown-cart">
-                    <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
-                      <span class="cart-menu-icon"></span>
-                      0 item(s) <span class="drop-price">- $0.00</span>
-                    </button>
+                    <c:set var="totalPrice" value="0"/>
+                    <c:forEach items="${cart}" var="cart" varStatus="rowCounter">
+                      <c:set var="totalPrice" value="${totalPrice + (cart.quantity * cart.product.price)}"/>
+                    </c:forEach>
 
-                    <div class="dropdown-menu dropdown-cart-menu pull-right clearfix" role="menu">
-                      <p class="dropdown-cart-description">Recently added item(s).</p>
-                      <ul class="dropdown-cart-product-list">
-                        <li class="item clearfix">
-                          <a href="#" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
-                          <a href="#" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>
-                          <figure>
-                            <a href="product.html"><img src="/images/products/thumbnails/phone2.jpg" alt="phone 2"></a>
-                          </figure>
-                          <div class="dropdown-cart-details">
-                            <p class="item-name">
-                              <a href="product.html">Iphone Case Cover Original</a>
-                            </p>
-                            <p>1x<span class="item-price">$499<span class="sub-price">.99</span></span></p>
-                          </div><!-- End .dropdown-cart-details -->
-                        </li>
-                      </ul>
 
-                      <ul class="dropdown-cart-total">
-                        <li><span class="dropdown-cart-total-title">Shipping:</span>$7</li>
-                        <li><span class="dropdown-cart-total-title">Total:</span>$1005<span class="sub-price">.99</span></li>
-                      </ul><!-- .dropdown-cart-total -->
-                      <div class="dropdown-cart-action">
-                        <p><a href="cart.html" class="btn btn-custom-2 btn-block">Cart</a></p>
-                        <p><a href="checkout.html" class="btn btn-custom btn-block">Checkout</a></p>
-                      </div><!-- End .dropdown-cart-action -->
+                      <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                        <span class="cart-menu-icon"></span>${fn:length(cart)} item(s) <span class="drop-price">- ${totalPrice} Lei</span>
+                      </button>
 
-                    </div><!-- End .dropdown-cart -->
+                      <div class="dropdown-menu dropdown-cart-menu pull-right clearfix" role="menu">
+                        <p class="dropdown-cart-description">Recently added item(s).</p>
+                        <ul class="dropdown-cart-product-list">
+                          <c:forEach items="${cart}" var="cart" varStatus="rowCounter">
+                            <li class="item clearfix">
+                              <a href="#" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
+                              <a href="#" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>
+                              <figure>
+                                <a href="product.html"><img src="${cart.product.picture}" alt="${cart.product.name}"></a>
+                              </figure>
+                              <div class="dropdown-cart-details">
+                                <p class="item-name">
+                                  <a href="product.html">${cart.product.name}</a>
+                                </p>
+                                <p>${cart.quantity} x <span class="item-price">${cart.product.price} Lei</span></p>
+                              </div><!-- End .dropdown-cart-details -->
+                            </li>
+                          </c:forEach>
+                        </ul>
+
+                        <ul class="dropdown-cart-total">
+                          <li><span class="dropdown-cart-total-title">Shipping:</span>~20 Lei</li>
+                          <li><span class="dropdown-cart-total-title">Total:</span>${totalPrice} Lei<span class="sub-price"></span></li>
+                        </ul><!-- .dropdown-cart-total -->
+                        <div class="dropdown-cart-action">
+                          <p><a href="cart.html" class="btn btn-custom-2 btn-block">Cart</a></p>
+                          <p><a href="checkout.html" class="btn btn-custom btn-block">Checkout</a></p>
+                        </div><!-- End .dropdown-cart-action -->
+                      </div><!-- End .dropdown-cart -->
+
                   </div><!-- End .btn-group -->
                 </div><!-- End .dropdown-cart-menu-container -->
                 <%--CART BUTTON DROP DOWN END--%>
@@ -370,4 +494,15 @@
       </div><!-- End #nav -->
     </div><!-- End #inner-header -->
   </header><!-- End #header -->
+
+
+    <div id="breadcrumb-container">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="index-2.html">Home</a></li>
+          <li class="active">Product</li>
+        </ul>
+      </div>
+    </div>
+
 </div>

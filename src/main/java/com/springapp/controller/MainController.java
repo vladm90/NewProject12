@@ -102,34 +102,7 @@ public class MainController extends AbstractController{
         return new ModelAndView("/shop/index", model);
     }
 
-    @RequestMapping(value = "/shop/products" , method = RequestMethod.GET)
-    public ModelAndView products(@RequestParam(value = "page", required = false) Integer page,
-                             ModelMap model, HttpServletRequest req, HttpServletResponse res) {
 
-        User loggedUser = getCurrentUser();
-        model.put("loggedUser", loggedUser);
-
-        /*PAGINAREA PRODUSELOR*/
-        List<Product> products = productService.getProducts();
-        PagedListHolder<Product> pagedListHolder = new PagedListHolder<Product>(products);
-        pagedListHolder.setPageSize(9);
-        model.put("maxPages", pagedListHolder.getPageCount());
-        if(page==null || page < 1 || page > pagedListHolder.getPageCount()) page = 1;
-
-        model.put("page", page);
-        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
-            pagedListHolder.setPage(0);
-            model.put("product", pagedListHolder.getPageList());
-        }
-        else if(page <= pagedListHolder.getPageCount()) {
-            pagedListHolder.setPage(page-1);
-            model.put("product", pagedListHolder.getPageList());
-        }
-
-        model.put("productCategoryEnum", Arrays.asList(ProductCategoryEnum.values()));
-
-        return new ModelAndView("/shop/products", model);
-    }
 
     @RequestMapping(value = "/facebookLogin" , method = RequestMethod.GET)
     public ModelAndView facebookLogin(ModelMap model,String code,

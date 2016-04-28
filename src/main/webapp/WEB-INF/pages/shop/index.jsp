@@ -1,34 +1,103 @@
 <%@ include file="/WEB-INF/pages/fragments/header_shop.jsp"%>
 
+<script>
+	$(document).ready(function(){
+		$('#slider-rev').show();
+		$('#container').show();
+	});
+</script>
+
+
+
+
 <div id="wrapper">
 
         <section id="content">
 
-            <%--SLIDER--%>
+			<div id="slider-rev-container">
+				<div id="slider-rev" style="display: none;">
+					<ul>
+						<li data-transition="fade">
+							<div class="tp-caption rev-title skewfromleft stt" data-x="70" data-y="150" data-speed="800" data-start="900"
+								 data-easing="Power3.easeIn" data-endspeed="300">Sale</div>
+							<div class="tp-caption rev-subtitle skewfromleft stt" data-x="70" data-y="205" data-speed="800" data-start="900"
+								 data-easing="Power3.easeIn" data-endspeed="300">It’s here & You’re invited</div>
+							<div class="tp-caption rev-text sfl stl" data-x="70" data-y="275" data-speed="800" data-start="1300" data-easing="Power3.easeIn"
+								 data-endspeed="300">Nulla facilisi. Sed ultrices augue in neque aliquet eleifend volutpat augue viverra. Integer ante tellus, gravida ut vestibulum ut,
+								varius idleo. Aliquam congue augue nec neque egestas bibendum.
+								Phasellus dapibus tellus quis metus...</div>
+
+							<div class="tp-caption sfb stb" data-x="70" data-y="395" data-speed="1200" data-start="1800" data-easing="Power3.easeIn" data-endspeed="300">
+								<a href="#" class="btn btn-custom-2">Shop Now</a>
+							</div>
+							<div class="tp-caption lfb ltb" data-x="570" data-y="0" data-speed="1200" data-start="600" data-easing="Expo.easeOut">
+								<a href="#"><img src="/images/homeslider/1.png" alt="slide3_1" width="560" height="600"></a>
+							</div>
+						</li>
+
+						<li data-transition="fade">
+							<div class="tp-caption lfb ltb" data-x="100" data-y="50" data-speed="1200" data-start="600" data-easing="Expo.easeOut">
+								<a href="#"><img src="/images/homeslider/3.png" alt="slide2_1" width="300" height="600"></a>
+							</div>
+							<div class="tp-caption rev-title skewfromleft stt" data-x="610" data-y="150" data-speed="800" data-start="900"
+								 data-easing="Power3.easeIn" data-endspeed="300">New</div>
+							<div class="tp-caption rev-subtitle skewfromleft stt" data-x="610" data-y="205" data-speed="800" data-start="900"
+								 data-easing="Power3.easeIn" data-endspeed="300">Men Collection</div>
+							<div class="tp-caption rev-text sfl stl" data-x="610" data-y="275" data-speed="800" data-start="1300" data-easing="Power3.easeIn"
+								 data-endspeed="300">Integer ultrices ipsum id justo ultrices sed blandit felis ultricies. Duis semper tristique congue.
+								Pellentesque id orcised ligula elementum tempor ut non nulla. Aenean lectus nulla, rutrum in tincidunt non, vestibulum a arcu...</div>
+
+							<div class="tp-caption sfb stb" data-x="610" data-y="395" data-speed="1200" data-start="1800" data-easing="Power3.easeIn" data-endspeed="300">
+								<a href="#" class="btn btn-custom-2">Shop Now</a>
+							</div>
+						</li>
+
+
+						<li data-transition="fade">
+							<div class="tp-caption lfb ltb" data-x="120" data-y="50" data-speed="1200" data-start="600" data-easing="Expo.easeOut">
+								<a href="#"><img src="/images/homeslider/2.png" alt="slide1_1" width="330" height="600"></a>
+							</div>
+							<div class="tp-caption rev-title skewfromleft stt" data-x="610" data-y="150" data-speed="800" data-start="900"
+								 data-easing="Power3.easeIn" data-endspeed="300">Lookbook</div>
+							<div class="tp-caption rev-subtitle skewfromleft stt" data-x="610" data-y="205" data-speed="800" data-start="900"
+								 data-easing="Power3.easeIn" data-endspeed="300">Spring-Summer-2012</div>
+							<div class="tp-caption rev-text sfl stl" data-x="610" data-y="275" data-speed="800" data-start="1300" data-easing="Power3.easeIn"
+								 data-endspeed="300">Praesent arcu urna, cursus sit amet condimentum id, dapibusa mauris. Sed ante massa pellentesque luctus, magna sed ultricies
+								molestie, felis tortor pellentesque ligula, in sagittis neque turpis eget augue.</div>
+
+							<div class="tp-caption sfb stb" data-x="610" data-y="395" data-speed="1200" data-start="1800" data-easing="Power3.easeIn" data-endspeed="300">
+								<a href="#" class="btn btn-custom-2">Shop Now</a>
+							</div>
+						</li>
+
+					</ul>
+				</div><!-- End #slider-rev -->
+			</div><!-- End #slider-rev-container -->
+            <%--<%--SLIDER-->
         	<div id="slider-sequence" class="homeslider">
         		<div class="sequence-prev"></div><!-- End sequence-prev-->
         		<div class="sequence-next"></div><!-- End sequence-next-->
         		<ul class="sequence-canvas">
-        			<li class="sequence-slide1">
-        				<div class="sequencebg">
-        					<img src="images/homeslider/new5.jpg" alt="Slide 1 image" class="sequencebg-image">
-        				</div><!-- End .sequencebg -->
-        				<div class="sequence-container container">
-        					<%--<img src="images/homeslider/slide1_1.png" alt="Model 1" class="sequence-model">--%>
-        					<div class="sequence-title">Special offer -25%</div>
-        					<div class="sequence-subtitle">Performance &amp; Design. Taken right to the edge.</div>
-        					<a href="#" class="btn btn-custom-2 btn-sequence">Learn More</a>
-        				</div><!-- End .sequence-container -->
-        			</li>
+					<li class="sequence-slide1">
+						<div class="sequencebg">
+							<img src="/images/homeslider/slide1.png" alt="Slide 1 image" class="sequencebg-image">
+						</div><!-- End .sequencebg -->
+						<div class="sequence-container container">
+							<img src="/images/homeslider/slide1_1.png" alt="Model 1" class="sequence-model">
+							<div class="sequence-title">Special offer -25%</div>
+							<div class="sequence-subtitle">Performance &amp; Design. Taken right to the edge.</div>
+							<a href="#" class="btn btn-custom-2 btn-sequence">Learn More</a>
+						</div><!-- End .sequence-container -->
+					</li>
         			
-        			<li class="sequence-slide2">
+        			&lt;%&ndash;<li class="sequence-slide2">
         				<div class="sequencebg">
-        					<img src="images/homeslider/new4.jpg" alt="Slide 2 image" class="sequencebg-image">
+        					<img src="images/homeslider/new5.png" alt="Slide 2 image" class="sequencebg-image">
         				</div><!-- End .sequencebg -->
         				<div class="sequence-container container">
         					<div class="sequence-price">$1250</div>
-        					<%--<img src="images/homeslider/slide2_2.png" alt="Model 2" class="sequence-model">
-        					<img src="images/homeslider/slide2_1.png" alt="Model 1" class="sequence-model2">--%>
+        					&lt;%&ndash;<img src="images/homeslider/slide2_2.png" alt="Model 2" class="sequence-model">
+        					<img src="images/homeslider/slide2_1.png" alt="Model 1" class="sequence-model2">&ndash;%&gt;
         					<div class="sequence-title">The next big thing...</div>
         					<div class="sequence-subtitle">Take, view and share photos with the 13MP camera and stunning 5" display.</div>
         					<a href="#" class="btn btn-custom-2 btn-sequence">Learn More</a>
@@ -40,15 +109,15 @@
         					<img src="images/homeslider/new3.jpg" alt="Slide 3 image" class="sequencebg-image">
         				</div><!-- End .sequencebg -->
         				<div class="sequence-container container">
-        					<%--<img src="images/homeslider/slide3_1.png" alt="Model 3" class="sequence-model">--%>
+        					&lt;%&ndash;<img src="images/homeslider/slide3_1.png" alt="Model 3" class="sequence-model">&ndash;%&gt;
         					<div class="sequence-title">Control. Navigate. Be Recognized.</div>
         					<div class="sequence-subtitle">Smart Interaction lets you interact with your TV as never before.</div>
         					<a href="#" class="btn btn-custom-2 btn-sequence">Learn More</a>
-        					<%--<img src="images/homeslider/slide3_4.png" alt="Mobile phone" class="sequence-phone">
+        					&lt;%&ndash;<img src="images/homeslider/slide3_4.png" alt="Mobile phone" class="sequence-phone">
         					<img src="images/homeslider/slide3_2.png" alt="Tablet" class="sequence-tablet">
-        					<img src="images/homeslider/slide3_3.png" alt="Screen" class="sequence-screen">--%>
+        					<img src="images/homeslider/slide3_3.png" alt="Screen" class="sequence-screen">&ndash;%&gt;
         				</div><!-- End .sequence-container -->
-        			</li>
+        			</li>&ndash;%&gt;
         		</ul>
         		
 					<ul class="sequence-pagination">
@@ -56,11 +125,11 @@
 						<li>Frame 2</li>
 						<li>Frame 3</li>
 					</ul>
-        	</div><!-- End #slider-sequence -->
+        	</div><!-- End #slider-sequence -->--%>
         	
         	
         	<div class="md-margin2x"></div><!-- Space -->
-        	<div class="container">
+        	<div class="container" id="container" style="display: none;">
         		<div class="row">
         			<div class="col-md-12">
         				
@@ -412,5 +481,6 @@
         </section><!-- End #content -->
 
     </div>
+
 
 <%@ include file="/WEB-INF/pages/fragments/footer_shop.jsp"%>

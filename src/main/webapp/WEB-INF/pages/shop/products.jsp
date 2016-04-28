@@ -93,7 +93,7 @@
                     <div class="item">
                       <div class="item-image-container">
                         <figure>
-                          <a href="product.html">
+                          <a href="/shop/productDetail?product_id=${product.id}">
                             <img src="${product.picture}" alt="${product.name}" class="item-image">
                             <img src="${product.picture}" alt="${product.name}" class="item-image-hover">
                           </a>
@@ -123,7 +123,7 @@
                         </div><!-- End .rating-container -->
                         <h3 class="item-name"><a href="product.html">${product.name} ${product.weight}g</a></h3>
                         <div class="item-action">
-                          <a href="#" class="item-add-btn">
+                          <a href="/shop/addProductCart?product_id=${product.id}" class="item-add-btn">
                             <span class="icon-cart-text">Add to Cart</span>
                           </a>
                           <div class="item-action-inner">

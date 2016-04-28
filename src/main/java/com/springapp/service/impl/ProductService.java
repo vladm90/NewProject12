@@ -39,5 +39,10 @@ public class ProductService extends GenericService<Product, Long> implements IPr
         return productDao.getProducts();
     }
 
+    @Override
+    public Product getById(Long id) {
+        return productDao.getById(id);
+    }
+
 }
 

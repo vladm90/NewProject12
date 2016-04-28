@@ -1,5 +1,6 @@
 package com.springapp.dao;
 
+import com.springapp.model.Cart;
 import com.springapp.model.Product;
 import com.springapp.model.User;
 
@@ -12,12 +13,9 @@ import java.util.List;
  * Time: 16:29
  */
 
-public interface IProductDao extends IGenericDao<Product, Long>{
+public interface ICartDao extends IGenericDao<Cart, Long>{
 
-    List<Product> getProducts();
-
-    Product getById(Long id);
-
+    List<Cart> getCart(User user, String session);
 
 
 

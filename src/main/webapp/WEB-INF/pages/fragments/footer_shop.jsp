@@ -111,40 +111,11 @@
     </div><!-- End #wrapper -->
     <a href="#" id="scroll-top" title="Scroll to Top"><i class="fa fa-angle-up"></i></a><!-- End #scroll-top -->
     <!-- END -->
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/smoothscroll.js"></script>
-    <script src="/js/retina-1.1.0.min.js"></script>
-    <script src="/js/jquery.placeholder.js"></script>
-    <script src="/js/jquery.hoverIntent.min.js"></script>
-    <script src="/js/twitter/jquery.tweet.min.js"></script>
-    <script src="/js/jquery.flexslider-min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/jflickrfeed.min.js"></script>
-    <script src="/js/jquery.prettyPhoto.js"></script>
-    <script src="/js/jquery.jscrollpane.min.js"></script>
-    <script src="/js/jquery.nouislider.min.js"></script>
-    <script src="/js/jquery.sequence-min.js"></script>
-    <script src="/js/colpick.js"></script>
+
+
+    <%--SCRIPTS--%>
     <script src="/js/main.js"></script>
 
-    <script>
-      $(function() {
-        // Sequence.js Slider Plugin
-        var options = {
-                  nextButton: true,
-                  prevButton: true,
-                  pagination:true,
-                  autoPlay: true,
-                  autoPlayDelay: 8500,
-                  pauseOnHover: true,
-                  preloader: true,
-                  theme: 'slide',
-                  speed: 700,
-                  animateStartingFrameIn: true
-                },
-                homeSlider = $('#slider-sequence').sequence(options).data("sequence");
 
-      });
-    </script>
   </body>
 </html>

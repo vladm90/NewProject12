@@ -33,6 +33,14 @@ public class ProductDao extends GenericDao<Product, Long> implements IProductDao
         return query.getResultList();
     }
 
+    @Override
+    public Product getById(Long id) {
+        String sql = "SELECT p FROM Product p WHERE p.enabled=true and p.id=:id";
+        Query query = entityManager.createQuery(sql).setParameter("id", id);
+
+        return (Product)query.getSingleResult();
+    }
+
 
 
 

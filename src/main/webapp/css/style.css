@@ -1046,7 +1046,7 @@ blockquote:before{
 	margin-top:8px;
 	border-top:3px solid #84bb26;
 	background: #fff;
-	padding:20px;
+	padding:10px;
 }
 
 .dropdown-cart,
@@ -1064,18 +1064,18 @@ blockquote:before{
 }
 
 .dropdown-cart .dropdown-cart-product-list {
-	margin-bottom:5px;
+	margin-bottom:10px;
 	list-style-type:none;
 }
 
 .dropdown-cart .dropdown-cart-product-list li.item {
 	position:relative;
-	margin-bottom:20px;
+	margin-bottom:0px;
 	padding:0;
 }
 
 .dropdown-cart .dropdown-cart-product-list  figure{
-	width:85px;
+	width:55px;
 	float:left;
 	margin-right:10px;
 }
@@ -1123,7 +1123,7 @@ blockquote:before{
 	line-height:20px;
 	font-weight:700;
 	display:inline-block;
-	margin-bottom:10px;
+	margin-bottom:0px;
 
 }
 
@@ -1131,6 +1131,7 @@ blockquote:before{
 	float:left;
 	width:160px;
 	padding-right:20px;
+	margin-top:5px;
 }
 
 .dropdown-cart  .dropdown-cart-product-list  .dropdown-cart-details .item-price {
@@ -1214,6 +1215,9 @@ parent's font-size:0
 /* =============================================
 ---------------------  Content ---------------
 ==============================================*/
+#contentHeader {
+
+}
 
 #content {
 	padding-bottom:50px;
@@ -1786,7 +1790,7 @@ Bootstrap Breadcrumb style overwrite
 
 #breadcrumb-container {
 	background:#7bae23;
-	margin-bottom:50px;
+	/*margin-bottom:50px;*/
 }
 
 .breadcrumb {
@@ -3854,6 +3858,11 @@ select.input-lg {
 	position: relative;
 }
 #product-image-container img {
+	display:inline-block;
+	width:100%;
+	height:auto;
+}
+#product-image-container figure {
 	display:inline-block;
 	width:100%;
 	height:auto;
