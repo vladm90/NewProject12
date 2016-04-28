@@ -201,7 +201,7 @@
 		// the minimum number of items to show. 
 		// when we resize the window, this will make sure minItems are always shown 
 		// (unless of course minItems is higher than the total number of elements)
-		minItems : 3,
+		minItems : 2,
 		// optionally specify a selector rather than using the img element to read the image sizes
 		// (we only use the first matching element within our items)
 		imgSizeItemSelector : 'img',

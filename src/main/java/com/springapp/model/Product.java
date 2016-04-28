@@ -41,6 +41,10 @@ public class Product extends BaseEntity {
     @Column(name = "WEIGHT", length = Constants.COLUMN_SMALLER_LENGTH, nullable = false)
     private String weight;
 
+    @Column(name = "CREATION_DATE", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate = new Date();
+
 
     public String getName() {
         return name;
@@ -96,5 +100,13 @@ public class Product extends BaseEntity {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

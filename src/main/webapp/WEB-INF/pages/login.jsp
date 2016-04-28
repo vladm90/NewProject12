@@ -55,12 +55,7 @@
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
               </form>
-              <form id="loginForm" action="<c:url value='https://www.selfawb.ro/tarif.php?username=clienttest&user_pass=testare&client_id=7032158&serviciu=standard&judet_dest=Bucuresti&localitate_dest=Bucuresti&plicuri=0&colete=1&greutate=1&lungime=10&latime=10&inaltime=10&val_decl=10&plata_ramburs=0' />" method='POST'>
 
-                <button type="submit" class="btn btn-custom-2">LOGIN</button>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-
-              </form>
               <%--LOGIN WITH FACEBOOK--%>
               <div class="md-margin"></div><!-- space -->
               <%--<%FBConnection fbConnection = new FBConnection();%>--%>
