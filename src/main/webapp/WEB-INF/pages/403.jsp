@@ -1,25 +1,29 @@
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: vmotoroiu
-  Date: 15.03.2016
-  Time: 15:05
+  Date: 26.04.2016
+  Time: 16:18
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<body>
-<h1>HTTP Status 403 - Access is denied</h1>
+<%@ include file="/WEB-INF/pages/fragments/header_shop.jsp"%>
 
-<c:choose>
-  <c:when test="${empty user.email}">
-    <h2>You do not have permission to access this page!</h2>
-  </c:when>
-  <c:otherwise>
-    <h2>Username :'${user.email}' '${role}'<br/>You do not have permission to access this page!</h2>
-  </c:otherwise>
-</c:choose>
-<h2>Username :'${user.email}' '${role}'<br/>You do not have permission to access this page!</h2>
+<div id="wrapper">
 
-</body>
-</html>
+
+  <section id="content" class="no-content">
+    <div class="md-margin"></div><!-- .space -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="no-content-comment">
+            <h2>403 Forbidden</h2>
+            <h3>It's not my fault buddy! <br> I think you got lost.</h3>
+          </div><!-- End .no-content-comment -->
+        </div><!-- End .col-md-12 -->
+      </div><!-- End .row -->
+    </div><!-- End .container -->
+
+  </section><!-- End #content -->
+</div>
+<%@ include file="/WEB-INF/pages/fragments/footer_shop.jsp"%>

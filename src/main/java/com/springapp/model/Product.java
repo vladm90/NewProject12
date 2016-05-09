@@ -109,4 +109,29 @@ public class Product extends BaseEntity {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+   /* @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (!name.equals(product.name)) return false;
+        if (!description.equals(product.description)) return false;
+        if (!price.equals(product.price)) return false;
+        if (!picture.equals(product.picture)) return false;
+        return productCategoryEnum == product.productCategoryEnum;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + price.hashCode();
+        result = 31 * result + picture.hashCode();
+        result = 31 * result + productCategoryEnum.hashCode();
+        return result;
+    }*/
 }

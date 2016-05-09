@@ -13,6 +13,9 @@
         <intercept-url pattern="/Facebook_Login*" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/login" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/shop" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/cart" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/cart/getLocality" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/cart/delete" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/admin" access="ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/admin/listUsers" access="ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/user" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>

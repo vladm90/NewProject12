@@ -1,21 +1,26 @@
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: vmotoroiu
-  Date: 14.03.2016
-  Time: 11:48
+  Date: 26.04.2016
+  Time: 16:18
   To change this template use File | Settings | File Templates.
 --%>
-
-<%@ include file="/WEB-INF/pages/fragments/header.jsp"%>
-
-
-  <div class="container theme-showcase" role="main"></div>
+<%@ include file="/WEB-INF/pages/fragments/header_shop.jsp"%>
 
 
-
-  <script></script>
+<div id="wrapper">
+  <section id="content">
+    <div class="md-margin"></div><!-- .space -->
+    <div class="container">
 
 
 
-  <%@ include file="/WEB-INF/pages/fragments/footer.jsp"%>
+    </div><!-- End #container -->
+  </section><!-- End #content -->
+</div>
 
+
+
+
+<%@ include file="/WEB-INF/pages/fragments/footer_shop.jsp"%>

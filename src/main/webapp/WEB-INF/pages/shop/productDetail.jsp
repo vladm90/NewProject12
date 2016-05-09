@@ -272,10 +272,10 @@
   }
   function decrementQuantity(){
     var value = parseInt($('#quantity').val());
-    if(value > 0) {
+    if(value > 1) {
       $('#quantity').val(value-1);
     }else{
-      $('#quantity').val(0);
+      $('#quantity').val(1);
     }
   }
 </script>

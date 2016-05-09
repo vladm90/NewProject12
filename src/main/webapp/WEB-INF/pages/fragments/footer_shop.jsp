@@ -74,7 +74,14 @@
                 <h3>FACEBOOK LIKE BOX</h3>
 
                 <div class="facebook-likebox">
-                  <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fenvato&amp;colorscheme=dark&amp;show_faces=true&amp;header=false&amp;stream=false&amp;show_border=false"></iframe>
+                  <div class="fb-page" data-href="https://www.facebook.com/myappmarket/" data-tabs="timeline"
+                       data-width="250" data-height="100" data-small-header="false" data-adapt-container-width="true"
+                       data-hide-cover="false" data-show-facepile="true">
+                    <div class="fb-xfbml-parse-ignore">
+                      <blockquote cite="https://www.facebook.com/myappmarket/"><a
+                              href="https://www.facebook.com/myappmarket/">MyApp</a></blockquote>
+                    </div>
+                  </div>
                 </div>
 
 

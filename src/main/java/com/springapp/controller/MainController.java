@@ -1,10 +1,7 @@
 package com.springapp.controller;
 import com.springapp.handler.FBConnection;
 import com.springapp.handler.FBGraph;
-import com.springapp.model.Product;
-import com.springapp.model.ProductCategoryEnum;
-import com.springapp.model.Role;
-import com.springapp.model.User;
+import com.springapp.model.*;
 import com.springapp.service.IProductService;
 import com.springapp.service.IRoleService;
 import com.springapp.service.IUserService;
@@ -81,6 +78,15 @@ public class MainController extends AbstractController{
 
         User loggedUser = getCurrentUser();
         model.put("loggedUser", loggedUser);
+
+        /*CHECK FOR CARD DUPLICATES, SET ENABLED FALSE AND ADD TO QUANTITY*//*
+        if(loggedUser != null) {
+            checkCartDuplicates(loggedUser, req);
+        }*/
+
+        /*CART LIST*/
+        List<Cart> cartList = cartList(loggedUser, req);
+        model.put("cart", cartList);
 
         /*PAGINAREA PRODUSELOR*/
         List<Product> products = productService.getProducts();
@@ -188,9 +194,13 @@ public class MainController extends AbstractController{
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(ModelMap model,
-                              @RequestParam(value = "error", required = false) String error,
-                              @RequestParam(value = "logout", required = false) String logout) {
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "logout", required = false) String logout,
+                              ModelMap model,HttpServletRequest req) {
+
+         /*CART LIST*/
+        List<Cart> cartList = cartList(null, req);
+        model.put("cart", cartList);
 
         if (error != null) model.put("error", "Invalid email and password!");
         if (logout != null) model.put("msg", "You've been logged out successfully.");

@@ -7,6 +7,7 @@ import com.springapp.model.Product;
 import com.springapp.model.User;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -37,6 +38,25 @@ public class CartDao extends GenericDao<Cart, Long> implements ICartDao {
         if (session != null) query.setParameter("session", session);
 
         return query.getResultList();
+    }
+
+    @Override
+    public Cart getProduct(Product product, String session, User user){
+        try{
+            String sql = "SELECT c FROM Cart c WHERE c.enabled=true " ;
+            if (product != null) sql += "and c.product = :product ";
+            if (user == null && session != null) sql += "and c.session = :session ";
+            if (user != null && session != null) sql += "and (c.session = :session or c.user = :user )";
+
+            Query query = entityManager.createQuery(sql);
+            if (product != null) query.setParameter("product", product);
+            if (session != null) query.setParameter("session", session);
+            if (user != null) query.setParameter("user", user);
+
+            return (Cart)query.getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
 

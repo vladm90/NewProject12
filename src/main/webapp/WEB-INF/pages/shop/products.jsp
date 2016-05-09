@@ -121,7 +121,7 @@
                           </div><!-- End .ratings -->
                           <span class="ratings-amount">0 Reviews</span>
                         </div><!-- End .rating-container -->
-                        <h3 class="item-name"><a href="product.html">${product.name} ${product.weight}g</a></h3>
+                        <h3 class="item-name"><a href="/shop/productDetail?product_id=${product.id}">${product.name} ${product.weight}g</a></h3>
                         <div class="item-action">
                           <a href="/shop/addProductCart?product_id=${product.id}" class="item-add-btn">
                             <span class="icon-cart-text">Add to Cart</span>

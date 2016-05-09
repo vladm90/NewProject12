@@ -18,6 +18,8 @@ public interface IProductService extends IGenericService<Product, Long> {
 
     Product getById(Long id);
 
+    List<Product> getNewProducts();
+
 
 
 

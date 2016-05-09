@@ -41,7 +41,7 @@ public class AdministrationController extends AbstractController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage(ModelMap model) {
 
-        return new ModelAndView("admin", model);
+        return new ModelAndView("/admin/admin", model);
 
     }
 
