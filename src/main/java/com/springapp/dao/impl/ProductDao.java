@@ -41,6 +41,15 @@ public class ProductDao extends GenericDao<Product, Long> implements IProductDao
         return (Product)query.getSingleResult();
     }
 
+    @Override
+    public List<Product> getNewProducts() {
+        String sql = "SELECT p FROM Product p WHERE p.enabled=true order by p.creationDate desc";
+        Query query = entityManager.createQuery(sql);
+        query.setMaxResults(6);
+
+        return query.getResultList();
+    }
+
 
 
 

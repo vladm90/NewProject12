@@ -521,7 +521,7 @@
 
  	#header-top .header-link {
  		margin-right:0;
- 		position: absolute;
+ 		/*position: absolute;*/
 		top:40px;
  		right:0;
  		min-width:200px;

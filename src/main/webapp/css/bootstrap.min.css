@@ -1617,6 +1617,9 @@ th {
     width: 100%;
     margin-bottom: 20px
 }
+.table >input{
+
+}
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px;
@@ -3182,6 +3185,10 @@ input[type=submit].btn-block, input[type=reset].btn-block, input[type=button].bt
 
 .glyphicon-phone-alt:before {
     content: "\e183"
+}
+
+.glyphicon-menu-down:before {
+    content: "\e259";
 }
 
 .glyphicon-tower:before {

@@ -491,7 +491,7 @@ blockquote:before{
 	display:block;
 	position: absolute;
 	left:0;
-	top:1px;
+	top:2px;
 	background: url(../images/sprites/sprite.png) no-repeat;
 	width:22px;
 	height:18px;
@@ -2072,10 +2072,14 @@ select.input-lg {
 	width:100% !important; /* overwrite even javascript  this is important better responsive image */
 }
 
+
+
 .portfolio-item > figure {
 	margin-bottom:20px;
 	position: relative;
 }
+
+
 
 /* responsive images */
 .portfolio-item  img {
@@ -4167,7 +4171,7 @@ select.input-lg {
 }
 
 .cart-table .item-name-col figure {
-	width:180px;
+	width:100px;
 	float:left;
 	margin-right:20px;
 }
@@ -4189,8 +4193,17 @@ select.input-lg {
 	margin-top:6px;
 }
 
+.item-price-special >input {
+	background-color: transparent;
+	border: 0px solid;
+	height: 20px;
+	width: 30px;
+	text-align: center;
+	color: #777777;
+}
+
 .table .item-price-col .item-price-special {
-	color:#555;
+	color: #777777;
 }
 
 .cart-table .item-name-col ul {
@@ -4224,7 +4237,7 @@ select.input-lg {
 	display:inline-block;
 	width:28px;
 	height:28px;
-	margin-left:18px;
+	margin-left:0px;
 	border:1px solid #dcdcdc;
 	background-color:#fafafa;
 	background-image: url('../images/sprites/sprite.png');
@@ -4252,6 +4265,22 @@ select.input-lg {
 	font:700 18px/20px "PT Sans", sans-serif;
 	color:#777777;
 	text-transform:uppercase;
+}
+.total-table > tbody > tr > td >input {
+	 background-color: transparent;
+	 border: 0px solid;
+	 height: 20px;
+	 width: 45px;
+	 text-align: center;
+	 color: #777777;
+}
+.total-table > tfoot > tr > td >input {
+	background-color: transparent;
+	border: 0px solid;
+	height: 20px;
+	width: 45px;
+	text-align: center;
+	color: #777777;
 }
 
 .total-table .total-table-title {
@@ -5288,6 +5317,8 @@ select.input-lg {
 	background-image: none;
 }
 
+
+
 .btn-group.open .dropdown-toggle {
   -webkit-box-shadow:none;
           box-shadow:none;
@@ -5821,7 +5852,7 @@ html[xmlns] .slides {display: block;}
 
 
 #content.no-content {
-	background-image: url('../images/404.jpg');
+	background-image: url('/images/404.jpg');
 	background-repeat: no-repeat;
 	background-size:cover;
 	-webkit-background-size:cover;
@@ -5837,7 +5868,7 @@ html[xmlns] .slides {display: block;}
 	left:50%;
 	margin-left:-360px;
 	top:40px;
-	background-image: url('../images/404-comment.png');
+	background-image: url('/images/404-comment.png');
 	background-repeat: no-repeat;
 	text-align:center;
 	padding-top:50px;
@@ -6173,3 +6204,4 @@ html[xmlns] .slides {display: block;}
 #option-panel #panel-font .panel {
 	margin-bottom:10px;
 }
+

@@ -10,7 +10,7 @@
   Time: 12:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ include file="/WEB-INF/pages/common.jsp"%>
+<%@ include file="/WEB-INF/pages/fragments/common.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page session="true"%>
 
@@ -24,6 +24,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic%7CPT+Gudea:400,700,400italic%7CPT+Oswald:400,700,300' rel='stylesheet' id="googlefont">
+
+  <meta name="_csrf" content="${_csrf.token}"/>
+  <!-- default header name is X-CSRF-TOKEN -->
+  <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -75,6 +79,7 @@
   <script src="/js/jquery.themepunch.plugins.min.js"></script>
   <script src="/js/jquery.themepunch.revolution.min.js"></script>
   <script src="/js/colpick.js"></script>
+  <script src="/js/csrf_ajax.js"></script>
 
 
 
@@ -219,6 +224,53 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
+  <script>
+    $(function() {
+
+      // Simple Animation for 404 text
+
+      var container = $('.no-content-comment'),
+              title = container.find('h2'),
+              titleText = title.text(),
+              message = container.find('h3'),
+              messageText = message.text(),
+              titleTextLen = titleText.length,
+              messageTextLen = messageText.length,
+              titleNew = '',
+              messageNew = '',
+              time = 50;
+
+
+      function iterate(len, text, newVar, target) {
+        for (var i=0 ; i < len; i++) {
+          if (text[i] == '!') { // ! important for line breaks
+            newVar += '<span>'+text[i]+'<br></span>'
+          } else {
+            newVar += '<span>'+text[i]+'</span>';
+          }
+        }
+        target.html(newVar);
+      }
+
+
+      iterate(titleTextLen, titleText, titleNew, title);
+
+      iterate(messageTextLen, messageText, messageNew, message);
+
+
+      $(window).on('load', function () {
+
+        container.find('span').each(function () {
+          time +=80;
+          $(this).delay(200).animate({opacity: 1}, time);
+        });
+
+      });
+
+
+    });
+  </script>
+
 </head>
 
 <body<%-- onload='document.loginForm.email.focus();'--%>>
@@ -234,7 +286,7 @@
               <ul id="top-links" class="clearfix">
                 <li><a href="#" title="My Wishlist"><span class="top-icon top-icon-pencil"></span><span class="hide-for-xs">My Wishlist</span></a></li>
                 <li><a href="/account/details" title="My Account"><span class="top-icon top-icon-user"></span><span class="hide-for-xs">My Account</span></a></li>
-                <li><a href="cart.html" title="My Cart"><span class="top-icon top-icon-cart"></span><span class="hide-for-xs">My Cart</span></a></li>
+                <li><a href="/shop/cart" title="My Cart"><span class="top-icon top-icon-cart"></span><span class="hide-for-xs">My Cart</span></a></li>
                 <li><a href="checkout.html" title="Checkout"><span class="top-icon top-icon-check"></span><span class="hide-for-xs">Checkoaut</span></a></li>
                 <li><a href="/test" title="asd"><span class="top-icon top-icon-check"></span><span class="hide-for-xs">TEST</span></a></li>
               </ul>
@@ -265,20 +317,31 @@
 
               <div class="header-text-container pull-right">
                 <c:choose>
-                  <c:when test="${pageContext.request.userPrincipal.name eq null}">
+                  <%--pageContext.request.userPrincipal.name--%>
+                  <c:when test="${loggedUser eq null}">
                     <p class="header-text">Welcome to Venedor!</p>
                     <p class="header-link"><a href="/login">login</a>&nbsp;or&nbsp;<a href="#">create an account</a></p>
                   </c:when>
                   <c:otherwise>
-                    <p class="header-link"><a href="#"><span class="glyphicon glyphicon-user"></span> Logged as <strong>${pageContext.request.userPrincipal.name}</strong></a></p>
-                    <p class="header-link"><a href="javascript:formSubmit()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></p>
+                    <div class="btn-group dropdown-user">
+                      <p class="header-link"><img src="${loggedUser.fbPicture}" alt="${loggedUser.firstName}" height="30" width="30">
+                        <a href="#">Logged as <strong>${loggedUser.firstName} <span class="glyphicon glyphicon-collapse-down"></span></strong></a>
+                       </p>
+                      <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#"><span class="hide-for-xs">plm</span><span class="hide-for-lg">plm</span></a></li>
+                        <li><a href="javascript:formSubmit()"><span class="glyphicon glyphicon-log-out"></span><span class="hide-for-xs"> Logout</span><span class="hide-for-lg"> Logout</span></a></li>
+                        <c:url value="/j_spring_security_logout" var="logoutUrl" />
 
-                    <c:url value="/j_spring_security_logout" var="logoutUrl" />
+                        <form action="${logoutUrl}" method="post" id="logoutForm">
+                          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        </form>
+                      </ul>
+                    </div><!-- End .btn-group -->
+                    <%--<p class="header-link"><img src="${loggedUser.fbPicture}" alt="${loggedUser.firstName}" height="30" width="30">
+                      <a href="#">Logged as <strong>${loggedUser.firstName} </strong></a>
+                      <a href="javascript:formSubmit()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></p>--%>
 
-                    <form action="${logoutUrl}" method="post" id="logoutForm">
-                      <input type="hidden" name="${_csrf.parameterName}"
-                             value="${_csrf.token}" />
-                    </form>
+
 
                   </c:otherwise>
                 </c:choose>
@@ -394,7 +457,6 @@
                   <li>
                     <a href="#">PAGES</a>
                     <ul>
-                      <li><a href="product.html">Product</a></li>
                       <li><a href="cart.html">Cart</a></li>
                       <li><a href="category.html">Category</a>
                         <ul>
@@ -434,46 +496,52 @@
               <div id="quick-access">
                 <div class="dropdown-cart-menu-container pull-right">
                   <div class="btn-group dropdown-cart">
-                    <c:set var="totalPrice" value="0"/>
-                    <c:forEach items="${cart}" var="cart" varStatus="rowCounter">
+                      <c:set var="totalPrice" value="0"/>
+                      <c:forEach items="${cart}" var="cart" varStatus="rowCounter">
                       <c:set var="totalPrice" value="${totalPrice + (cart.quantity * cart.product.price)}"/>
-                    </c:forEach>
+                      </c:forEach>
 
-
-                      <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                       <spring:url value="/shop/cart" var="showCart" />
+                      <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown" onclick="location.href='${showCart}'">
                         <span class="cart-menu-icon"></span>${fn:length(cart)} item(s) <span class="drop-price">- ${totalPrice} Lei</span>
                       </button>
 
                       <div class="dropdown-menu dropdown-cart-menu pull-right clearfix" role="menu">
-                        <p class="dropdown-cart-description">Recently added item(s).</p>
-                        <ul class="dropdown-cart-product-list">
-                          <c:forEach items="${cart}" var="cart" varStatus="rowCounter">
-                            <li class="item clearfix">
-                              <a href="#" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
-                              <a href="#" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>
-                              <figure>
-                                <a href="product.html"><img src="${cart.product.picture}" alt="${cart.product.name}"></a>
-                              </figure>
-                              <div class="dropdown-cart-details">
-                                <p class="item-name">
-                                  <a href="product.html">${cart.product.name}</a>
-                                </p>
-                                <p>${cart.quantity} x <span class="item-price">${cart.product.price} Lei</span></p>
-                              </div><!-- End .dropdown-cart-details -->
-                            </li>
-                          </c:forEach>
-                        </ul>
+                       <c:choose>
+                         <c:when test="${fn:length(cart) == 0}">
+                           <p class="dropdown-cart-description">No products in the cart.</p>
+                         </c:when>
+                         <c:otherwise>
+                           <p class="dropdown-cart-description">Recently added item(s).</p>
+                           <ul class="dropdown-cart-product-list">
+                             <c:forEach items="${cart}" var="cart" varStatus="rowCounter">
+                               <li class="item clearfix">
+                                 <a href="/shop/cart/delete?productId=${cart.product.id}" title="Delete item" class="delete-item"><i class="fa fa-times"></i></a>
+                               <%--  <a href="#" title="Edit item" class="edit-item"><i class="fa fa-pencil"></i></a>--%>
+                                 <figure>
+                                   <a href="/shop/productDetail?product_id=${cart.product.id}"><img src="${cart.product.picture}" alt="${cart.product.name}"></a>
+                                 </figure>
+                                 <div class="dropdown-cart-details">
+                                   <p class="item-name">
+                                     <a href="/shop/productDetail?product_id=${cart.product.id}">${cart.product.name}</a>
+                                   </p>
+                                   <p>${cart.quantity} x <span class="item-price">${cart.product.price} Lei</span></p>
+                                 </div><!-- End .dropdown-cart-details -->
+                               </li>
+                             </c:forEach>
+                           </ul>
 
-                        <ul class="dropdown-cart-total">
-                          <li><span class="dropdown-cart-total-title">Shipping:</span>~20 Lei</li>
-                          <li><span class="dropdown-cart-total-title">Total:</span>${totalPrice} Lei<span class="sub-price"></span></li>
-                        </ul><!-- .dropdown-cart-total -->
-                        <div class="dropdown-cart-action">
-                          <p><a href="cart.html" class="btn btn-custom-2 btn-block">Cart</a></p>
-                          <p><a href="checkout.html" class="btn btn-custom btn-block">Checkout</a></p>
-                        </div><!-- End .dropdown-cart-action -->
-                      </div><!-- End .dropdown-cart -->
-
+                           <ul class="dropdown-cart-total">
+                             <li><span class="dropdown-cart-total-title">Shipping:</span>Select City</li>
+                             <li><span class="dropdown-cart-total-title">Total:</span>${totalPrice} Lei<span class="sub-price"></span></li>
+                           </ul><!-- .dropdown-cart-total -->
+                           <div class="dropdown-cart-action">
+                             <p><a href="/shop/cart" class="btn btn-custom-2 btn-block">Cart</a></p>
+                             <p><a href="checkout.html" class="btn btn-custom btn-block">Checkout</a></p>
+                           </div><!-- End .dropdown-cart-action -->
+                          </c:otherwise>
+                        </c:choose>
+                    </div><!-- End .dropdown-cart -->
                   </div><!-- End .btn-group -->
                 </div><!-- End .dropdown-cart-menu-container -->
                 <%--CART BUTTON DROP DOWN END--%>

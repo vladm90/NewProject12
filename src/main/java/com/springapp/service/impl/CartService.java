@@ -37,6 +37,11 @@ public class CartService extends GenericService<Cart, Long> implements ICartServ
         return cartDao.getCart(user, session);
     }
 
+    @Override
+    public Cart getProduct(Product product, String session, User user) {
+        return cartDao.getProduct(product, session, user);
+    }
+
 
 }
 

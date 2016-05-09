@@ -17,6 +17,6 @@ public interface ICartDao extends IGenericDao<Cart, Long>{
 
     List<Cart> getCart(User user, String session);
 
-
+    Cart getProduct(Product product, String session, User user);
 
 }

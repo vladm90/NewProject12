@@ -18,7 +18,7 @@ public interface IProductDao extends IGenericDao<Product, Long>{
 
     Product getById(Long id);
 
-
+    List<Product> getNewProducts();
 
 
 }
