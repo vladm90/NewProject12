@@ -209,45 +209,12 @@ public class MainController extends AbstractController{
     }
 
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView registration(ModelMap model) {
-        //model.put("user", new User());
-        return new ModelAndView("createAccount", model);
-
-    }
-
-    @RequestMapping(value = "/registration",  method =  RequestMethod.POST)
-    public ModelAndView registration(@Valid @ModelAttribute("form")  UserForm userForm,
-                                     ModelMap model ,BindingResult result) {
-
-       validateForm.validateForm(userForm, result);
-
-        if (result.hasErrors()) {
-            log.info("########## Field has errors ... ");
-            model.put("form", userForm);
-            return new ModelAndView("createAccount", model);
-        }
-        log.info("########## Saving user ... ");
-
-        // User user = userForm.getUser();
-        User user = new User();
-        BeanUtils.copyProperties(userForm, user);
-
-        Role role = new Role();
-        role.setId(2L);
-        user.setRole(role);
- //TODO trebuie sa verific daca exista deja User cu acelasi email si daca merge aceeasi entitate(USER) sa verific pt logare cu facebook , daca exista ID_FB
-        userService.save(user);
-        return new ModelAndView("userDetail", model);
-
-    }
 
 
         //for 403 access denied page// TREBUIE SA MODIFIC ASTA
     @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public ModelAndView accesssDenied() {
+    public ModelAndView accesssDenied(ModelMap model) {
 
-        ModelAndView model = new ModelAndView();
 
         //check if user is login
        /* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -258,8 +225,7 @@ public class MainController extends AbstractController{
 
         }*/
 
-        model.setViewName("403");
-        return model;
+        return new ModelAndView("403", model);
 
     }
 

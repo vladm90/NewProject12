@@ -17,6 +17,8 @@ public interface ILocalityService extends IGenericService<Locality, Long>{
 
     List<Locality> getLocalitiesByCounty(String county);
 
+    Locality getLocalityByName(String county, String locality);
+
     List<String> getLocalitiesByCountyForJson(String county);
 
     List<Locality> getCounties();

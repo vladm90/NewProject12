@@ -6,25 +6,60 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <http auto-config="true">
-        <!--<intercept-url pattern="/" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>-->
-        <intercept-url pattern="/registration" access="ROLE_ANONYMOUS" requires-channel="http"/>
+    <!-- GENERIC USE RESOURCES -->
+    <http security="none" pattern="/css/**"/>
+    <http security="none" pattern="/fonts/**"/>
+    <http security="none" pattern="/images/**"/>
+    <http security="none" pattern="/js/**"/>
+
+
+    <http auto-config="true"> <!--access-denied-page="/403.jsp"-->
+        <!--ANONYMOUS-->
+        <intercept-url pattern="/register" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/createAccount" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/Facebook_Login*" access="ROLE_ANONYMOUS" requires-channel="http"/>
-        <intercept-url pattern="/login" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/login*" access="ROLE_ANONYMOUS" requires-channel="http"/>
+
+        <!--ALL-->
+        <intercept-url pattern="/" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/login?logout" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/account/login.jsp" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/facebookLogin" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/facebook_login/fbhome" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+
+        <intercept-url pattern="/account/changePassword" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+
         <intercept-url pattern="/shop" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/products" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/productDetail*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/addProductCart*" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/shop/cart" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/shop/cart/getLocality" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/shop/cart/delete" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/test" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/account/details" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/contact" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+
+
+        <!--USER-->
+        <intercept-url pattern="/user" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+
+
+        <!--ADMIN-->
         <intercept-url pattern="/admin" access="ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/admin/listUsers" access="ROLE_ADMIN" requires-channel="http"/>
-        <intercept-url pattern="/user" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
-        <intercept-url pattern="/facebookLogin" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
-        <intercept-url pattern="/account/login.jsp" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/admin/addUser" access="ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/admin/userDetail*" access="ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/admin/updateUser*" access="ROLE_ADMIN" requires-channel="http"/>
+
+
+        <!-- DENY ACCESS TO UNCAUGHT ACTIONS -->
+        <!-- Fallback pattern for uncaught actions. Only god can access these, but he does not exist -->
+        <intercept-url pattern="/**/**" access="ROLE_GOD"/>
 
 
         <!-- access denied page -->
-        <access-denied-handler error-page="/403" />
+        <!--<access-denied-handler error-page="/403"/>-->
         <form-login
                 login-page="/login"
                 login-processing-url="/j_spring_security_check"
@@ -33,7 +68,7 @@
                 authentication-success-handler-ref="loginSucessHandler"
                 username-parameter="email"
                 password-parameter="password" />
-        <anonymous />
+        <anonymous granted-authority="ROLE_ANONYMOUS" />
 
         <logout logout-success-url="/login?logout"  />
 
@@ -63,8 +98,6 @@
            <!--<authentication-provider user-service-ref="userDetailsService"></authentication-provider>-->
     </authentication-manager>
 
-    <!--<bean:bean id="loginSucessHandler" class="com.springapp.handler.LoginSucessHandler">
-        </bean:bean>-->
 
 
 

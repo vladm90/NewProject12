@@ -859,10 +859,10 @@ function checkSupport(elemname, pluginname) {
 
     function initialize() {
         /* change your with your coordinates */
-        var myLatLng = new google.maps.LatLng(41.039193, 28.993818), // Your coordinates
+        var myLatLng = new google.maps.LatLng(45.1872211, 25.6534672), // Your coordinates
             mappy = {
                 center: myLatLng,
-                zoom: 15,
+                zoom: 10,
                 scrollwheel: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 styles: [{
@@ -881,14 +881,14 @@ function checkSupport(elemname, pluginname) {
                 }]
             };
         var map = new google.maps.Map(document.getElementById("map"), mappy),
-        	newpin = 'images/pin.png';
+        	newpin = '/images/pin.png';
 
         new google.maps.Marker({
             position: myLatLng,
             map: map,
             icon: newpin,
             animation: google.maps.Animation.DROP,
-            title: 'Venedor' // Title for marker
+            title: 'Breaza' // Title for marker
         });
     }
 

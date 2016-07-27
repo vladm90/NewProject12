@@ -205,7 +205,7 @@
                     </tfoot>
                   </table>
                   <div class="md-margin"></div><!-- End .space -->
-                  <a href="#" class="btn btn-custom-2">CONTINUE SHOPPING</a>
+                  <a href="/shop/products" class="btn btn-custom-2">CONTINUE SHOPPING</a>
                   <a href="#" class="btn btn-custom">CHECKOUT</a>
                 </div><!-- End .col-md-4 -->
               </div><!-- End .row -->
@@ -289,6 +289,19 @@
     $('#subtotalsec').val(parseInt($('#subtotalsec').val()) + parseInt($('#price'+id).val()));
     $('#subtotal').val(parseInt($('#subtotal').val()) + parseInt($('#price'+id).val()));
 
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+      xhr.setRequestHeader(header, token);
+    });
+
+    $.ajax({
+      type:"GET",
+      url:"/shop/addProductCart",
+      data:{product_id:id}
+
+    });
+
   }
 
   function decrementQuantity(id){
@@ -298,9 +311,24 @@
       $('#subtotal'+id).val(parseInt($('#price'+id).val())* (value-1));
       $('#subtotalsec').val(parseInt($('#subtotalsec').val()) - parseInt($('#price'+id).val()));
       $('#subtotal').val(parseInt($('#subtotal').val()) - parseInt($('#price'+id).val()));
+
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+      });
+
+      $.ajax({
+        type:"GET",
+        url:"/shop/addProductCart",
+        data:{product_id:id,decrement:true}
+
+      });
     }else{
       $('#quantity'+id).val(1);
     }
+
+
   }
 
 
@@ -326,7 +354,6 @@
             for(var i = 0 ; i < response.length ; i++ ){
               text = text + '<option value="' + response[i] + '">' + response[i] + '</option>' + '\n';
             }
-
             $('#locality').html(text);
           }
     });

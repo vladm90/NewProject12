@@ -104,6 +104,8 @@
                         </div>
                         <span class="new-rect">New</span>
                         <span class="discount-rect">-0%</span>
+                        <c:if test="${product.stock == false}"> <span class="stock-rect">Lipsa stoc</span></c:if>
+
                       </div><!-- End .item-image -->
 
                       <div class="item-meta-container">
@@ -123,9 +125,19 @@
                         </div><!-- End .rating-container -->
                         <h3 class="item-name"><a href="/shop/productDetail?product_id=${product.id}">${product.name} ${product.weight}g</a></h3>
                         <div class="item-action">
-                          <a href="/shop/addProductCart?product_id=${product.id}" class="item-add-btn">
-                            <span class="icon-cart-text">Add to Cart</span>
-                          </a>
+                          <c:choose>
+                            <c:when test="${product.stock == false}">
+                              <a href="#" onclick="return false;" class="item-add-btn">
+                                <span class="icon-cart-text">Lipsa stoc</span>
+                              </a>
+                            </c:when>
+                            <c:otherwise>
+                              <a href="/shop/addProductCart?product_id=${product.id}" class="item-add-btn">
+                                <span class="icon-cart-text">Add to Cart</span>
+                              </a>
+                            </c:otherwise>
+                          </c:choose>
+
                           <div class="item-action-inner">
                             <a href="#" class="icon-button icon-like">Favourite</a>
                             <a href="#" class="icon-button icon-compare">Checkout</a>

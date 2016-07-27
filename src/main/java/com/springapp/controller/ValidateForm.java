@@ -1,6 +1,8 @@
 package com.springapp.controller;
 
 
+import com.springapp.model.User;
+import com.springapp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -35,6 +37,9 @@ public class ValidateForm implements Validator {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private IUserService userService;
+
     public void validateForm(Object target, Errors errors) {
         UserForm userForm = (UserForm) target;
         Locale locale = LocaleContextHolder.getLocale();
@@ -43,7 +48,6 @@ public class ValidateForm implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "errors.required.field");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "role", "errors.required.field.role");
 
 
         if (userForm.getFirstName() != null && userForm.getFirstName().length() <= 2 && !userForm.getFirstName().equals("")) {
@@ -56,8 +60,12 @@ public class ValidateForm implements Validator {
             errors.rejectValue("password", "errors.required.field.parameter" , new Object[] {8, null, locale}, "min");
         }
 
-        if (userForm.getEmail() != null && !EmailValidator.getInstance().isValid(userForm.getEmail()) && !userForm.getLastName().equals("")) {
+        if (userForm.getEmail() != null && !EmailValidator.getInstance().isValid(userForm.getEmail()) && !userForm.getEmail().equals("")) {
             errors.rejectValue("email", "errors.email");
+        }else {
+             /*check if email already exist*/
+            User user = userService.getByEmail(null, userForm.getEmail());
+            if(user != null) errors.rejectValue("email", "errors.email.duplicate");
         }
 
         if(userForm.getPassword() != null && !userForm.getPassword().equals(userForm.getConfirmPassword())){
@@ -65,9 +73,15 @@ public class ValidateForm implements Validator {
             errors.rejectValue("confirmPassword", "error.password");
         }
 
-        if(userForm.getRole().equals("NONE")){
-            errors.rejectValue("role", "errors.required.field.role");
+
+        if(userForm.getLocality().toString().equals("-")){
+            errors.rejectValue("locality", "errors.required.field.locality");
+            errors.rejectValue("county", "errors.required.field.county");
         }
+
+
+
+
 
 
 

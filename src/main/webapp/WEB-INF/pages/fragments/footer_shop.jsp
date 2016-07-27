@@ -59,7 +59,7 @@
 
                 <ul class="contact-list">
                   <li><strong>Producator</strong></li>
-                  <li>Motoroiu Cristin</li>
+                  <li>Motoroiu Cristian</li>
                   <li>Oras Breaza, Prahova</li>
                   <li>Str. Colinei 23A</li>
                   <li>Tel: Cristian: +(40) 733 020 329</li>

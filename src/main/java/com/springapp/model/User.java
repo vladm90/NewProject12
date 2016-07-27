@@ -33,6 +33,13 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "LAST_NAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String lastName;
 
+    @Column(name = "PHONE", length = Constants.COLUMN_SMALLER_LENGTH, nullable = false)
+    private String phone;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "LOCALITY")
+    private Locality locality;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "ROLE")
     private Role role;
@@ -44,22 +51,22 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "FB_ID", length = Constants.COLUMN_SMALL_LENGTH, nullable = true)
     private Long fbId;
 
-    @Column(name = "FB_LOCALE", length = Constants.COLUMN_SMALL_LENGTH, nullable = false)
+    @Column(name = "FB_LOCALE", length = Constants.COLUMN_SMALL_LENGTH, nullable = true)
     private String fbLocale;
 
-    @Column(name = "FB_GENDER", length = Constants.COLUMN_SMALL_LENGTH, nullable = false)
+    @Column(name = "FB_GENDER", length = Constants.COLUMN_SMALL_LENGTH, nullable = true)
     private String fbGender;
 
-    @Column(name = "FB_AGE_RANGE", length = Constants.COLUMN_SMALL_LENGTH, nullable = false)
+    @Column(name = "FB_AGE_RANGE", length = Constants.COLUMN_SMALL_LENGTH, nullable = true)
     private Long fbAgeRange;
 
-    @Column(name = "FB_LINK", length = Constants.COLUMN_HIGH_LENGTH, nullable = false)
+    @Column(name = "FB_LINK", length = Constants.COLUMN_HIGH_LENGTH, nullable = true)
     private String fbLink;
 
-    @Column(name = "FB_PICTURE", length = Constants.COLUMN_HIGH_LENGTH, nullable = false)
+    @Column(name = "FB_PICTURE", length = Constants.COLUMN_HIGH_LENGTH, nullable = true)
     private String fbPicture;
 
-    @Column(name = "NEWSLETTER", nullable = false)
+    @Column(name = "NEWSLETTER", nullable = true)
     private Boolean newsletter = Boolean.FALSE;
 
 
@@ -98,6 +105,22 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Locality getLocality() {
+        return locality;
+    }
+
+    public void setLocality(Locality locality) {
+        this.locality = locality;
     }
 
     public Role getRole() {

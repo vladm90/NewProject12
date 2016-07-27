@@ -54,15 +54,13 @@ public class UserService extends GenericService<User, Long> implements IUserServ
 
     @Override
     public User getByEmail(User loggedUser, String email) {
-        User user = userDao.findByEmail(email);
-        return user;
+        return userDao.findByEmail(email);
     }
 
     @Override
     @Transactional
     public User save(User user) {
-        User u = super.save(user);
-        return u;
+        return super.save(user);
     }
 
 

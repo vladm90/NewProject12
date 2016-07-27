@@ -69,7 +69,8 @@
 		<location>/WEB-INF/pages/403.jsp</location>
 	</error-page>
 
-	<error-page>
+	<!--<error-page>
+		<exception-type>java.lang.RuntimeException</exception-type>
 		<location>/WEB-INF/pages/error.jsp</location>
-	</error-page>
+	</error-page>-->
 </web-app>

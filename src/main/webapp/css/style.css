@@ -12,6 +12,34 @@ Version:1.0
 ==============================================*/
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|Gudea:400,700,400italic|Oswald:400,700,300);
 
+.error_message {
+	padding: 2px;
+	margin-bottom: 0px;
+	border: 1px solid transparent;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+.error {
+	padding: 15px;
+	margin-bottom: 0px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+.msg {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+
 body {
 	font: 15px/1.5em Arial, sans-serif;
 	color: #7c807e;
@@ -1477,7 +1505,8 @@ parent's font-size:0
 }
 
 .new-rect,
-.discount-rect {
+.discount-rect,
+.stock-rect{
 	display:block;
 	font:700 16px/20px "PT Sans", sans-serif;
 	color:#fff;
@@ -1499,9 +1528,17 @@ parent's font-size:0
 	background:#c72929;
 }
 
+.stock-rect {
+	width:90px;
+	background:#c72929;
+}
+
 /* if two tags used together take discount to below */
 .new-rect + .discount-rect {
 	top:47px !important;
+}
+.stock-rect {
+	top:150px !important;
 }
 
 .item  .item-meta-container {

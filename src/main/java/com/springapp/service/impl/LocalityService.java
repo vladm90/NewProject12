@@ -43,6 +43,11 @@ public class LocalityService extends GenericService<Locality, Long> implements I
     }
 
     @Override
+    public Locality getLocalityByName(String county, String locality) {
+        return  localityDao.getLocalityByName(county, locality);
+    }
+
+    @Override
     public List<String> getLocalitiesByCountyForJson(String county) {
         List<Locality> localities = localityDao.getLocalitiesByCounty(county);
         List<String> locality = new ArrayList<String>();

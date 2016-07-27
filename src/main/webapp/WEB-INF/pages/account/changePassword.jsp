@@ -395,7 +395,7 @@
                 </div><!-- End .input-group -->
 
 
-                <input type="checkbox" name="newsletter" value="true" checked="checked"/> Sign-up to our newsletter.
+                <input type="checkbox" name="newsletter" value="true" checked="checked"/> I wish to subscribe to the Venedor newsletter.
                 <input type="hidden" name="newsletter" value="false">
 
                 <div class="xs-margin"></div>

@@ -20,6 +20,11 @@ public class UserForm extends BaseEntity{
     private String password;
     private String confirmPassword;
     private String role;
+    private String phone;
+    private String address;
+    private String county;
+    private String locality;
+    private boolean newsletter;
 
 
 
@@ -81,6 +86,46 @@ public class UserForm extends BaseEntity{
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+
+    public boolean isNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(boolean newsletter) {
+        this.newsletter = newsletter;
     }
 
     @Override

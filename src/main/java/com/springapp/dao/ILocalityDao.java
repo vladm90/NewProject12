@@ -17,5 +17,7 @@ public interface ILocalityDao extends IGenericDao<Locality, Long> {
 
     List<Locality> getLocalitiesByCounty(String county);
 
+    Locality getLocalityByName(String county, String locality);
+
     List<Locality> getCounties();
 }

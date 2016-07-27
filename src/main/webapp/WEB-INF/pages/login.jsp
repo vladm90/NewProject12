@@ -19,7 +19,7 @@
 
               <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
               <div class="md-margin"></div><!-- space -->
-              <a href="register-account.html" class="btn btn-custom-2">Create An Account</a>
+              <a href="/register" class="btn btn-custom-2">Create An Account</a>
               <div class="lg-margin"></div><!-- space -->
             </div><!-- End .col-md-6 -->
             <div class="col-md-6 col-sm-6 col-xs-12">

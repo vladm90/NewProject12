@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="/css/revslider.css">
 
   <!-- Favicon and Apple Icons -->
-  <link rel="icon" type="image/png" href="/images/icons/icon.html">
+  <link rel="icon" type="image/png" href="/images/icons/favicon.ico">
   <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.html">
   <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.html">
 
@@ -85,28 +85,6 @@
 
   <style id="custom-style"></style>
 
-  <style>
-
-    .error {
-      padding: 15px;
-      margin-bottom: 0px;
-      border: 1px solid transparent;
-      border-radius: 4px;
-      color: #a94442;
-      background-color: #f2dede;
-      border-color: #ebccd1;
-    }
-    .msg {
-      padding: 15px;
-      margin-bottom: 20px;
-      border: 1px solid transparent;
-      border-radius: 4px;
-      color: #31708f;
-      background-color: #d9edf7;
-      border-color: #bce8f1;
-    }
-
-  </style>
   <script>
     window.fbAsyncInit = function() {
       FB.init({
@@ -320,13 +298,13 @@
                   <%--pageContext.request.userPrincipal.name--%>
                   <c:when test="${loggedUser eq null}">
                     <p class="header-text">Welcome to Venedor!</p>
-                    <p class="header-link"><a href="/login">login</a>&nbsp;or&nbsp;<a href="#">create an account</a></p>
+                    <p class="header-link"><a href="/login">login</a>&nbsp;or&nbsp;<a href="/register">create an account</a></p>
                   </c:when>
                   <c:otherwise>
                     <div class="btn-group dropdown-user">
                       <p class="header-link"><img src="${loggedUser.fbPicture}" alt="${loggedUser.firstName}" height="30" width="30">
                         <a href="#">Logged as <strong>${loggedUser.firstName} <span class="glyphicon glyphicon-collapse-down"></span></strong></a>
-                       </p>
+                      </p>
                       <ul class="dropdown-menu pull-right" role="menu">
                         <li><a href="#"><span class="hide-for-xs">plm</span><span class="hide-for-lg">plm</span></a></li>
                         <li><a href="javascript:formSubmit()"><span class="glyphicon glyphicon-log-out"></span><span class="hide-for-xs"> Logout</span><span class="hide-for-lg"> Logout</span></a></li>
@@ -486,7 +464,7 @@
                       <li><a href="single.html">Blog Post</a></li>
                     </ul>
                   </li>
-                  <li><a href="contact.html">Contact Us</a></li>
+                  <li><a href="/shop/contact">Contact Us</a></li>
                 </ul>
 
               </nav>

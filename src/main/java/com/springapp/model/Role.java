@@ -13,33 +13,9 @@ import java.util.List;
 @Table(name = "ROLES")
 public class Role extends BaseEntity {
 
-    /*@Id
-    @GeneratedValue
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "ENABLED",nullable = false)
-    private Boolean enabled = Boolean.TRUE;*/
-
     @Column(name = "ROLE", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String role;
 
-
-  /*  public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }*/
 
     public String getRole() {
         return role;

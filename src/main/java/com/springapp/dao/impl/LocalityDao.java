@@ -41,6 +41,14 @@ public class LocalityDao extends GenericDao<Locality, Long> implements ILocality
     }
 
     @Override
+    public Locality getLocalityByName(String county, String locality) {
+        String sql = "SELECT l FROM Locality l WHERE l.enabled=true and l.county=:county and l.locality=:locality";
+        Query query = entityManager.createQuery(sql).setParameter("county", county).setParameter("locality", locality);
+
+        return (Locality)query.getSingleResult();
+    }
+
+    @Override
     public List<Locality> getCounties() {
         String sql = "SELECT l FROM Locality l WHERE l.enabled=true group by l.county";
         Query query = entityManager.createQuery(sql);

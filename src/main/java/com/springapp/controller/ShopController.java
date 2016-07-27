@@ -77,20 +77,24 @@ public class ShopController extends AbstractController{
 
     @RequestMapping(value = "/shop/addProductCart" , method = RequestMethod.GET)
     public ModelAndView addProductCart (@RequestParam(value = "product_id", required = false) Long productId,
+                                        @RequestParam(value = "decrement", required = false) boolean decrement,
                                         ModelMap model, HttpServletRequest req, HttpServletResponse res) {
 
         User loggedUser = getCurrentUser();
         model.put("loggedUser", loggedUser);
 
-
-
         //check if product exist in cart
         Product product = productService.getById(productId);
         Cart cart = cartService.getProduct(product, req.getRequestedSessionId(), loggedUser);
         if(cart != null){
-            //update cart product existent
-            cart.setQuantity(cart.getQuantity()+1);
-            cartService.update(null, cart);
+            if(decrement == false){
+                cart.setQuantity(cart.getQuantity() + 1);
+                cartService.update(null, cart);
+            } else {
+                cart.setQuantity(cart.getQuantity() - 1);
+                cartService.update(null, cart);
+            }
+        //update cart product existent
         }else{
             //add product in cart
             cart = new Cart();
@@ -126,7 +130,7 @@ public class ShopController extends AbstractController{
     }
 
     @RequestMapping(value = "/shop/cart" , method = RequestMethod.GET)
-    public ModelAndView cart (@RequestParam(value = "countyName", required = false) String countyName,
+    public ModelAndView cart (/*@RequestParam(value = "countyName", required = false) String countyName,*/
                               ModelMap model, HttpServletRequest req, HttpServletResponse res) {
 
         User loggedUser = getCurrentUser();
@@ -143,11 +147,11 @@ public class ShopController extends AbstractController{
         List<Locality> county = localityService.getCounties();
         model.put("county", county);
 
-        if (countyName != null){
+     /*   if (countyName != null){
             List<Locality> locality = localityService.getLocalitiesByCounty(countyName);
             model.put("locality", locality);
             model.put("countyName", countyName);
-        }
+        }*/
 
         return new ModelAndView("/shop/cart", model);
     }
@@ -179,6 +183,21 @@ public class ShopController extends AbstractController{
     public List<String> getLocality (@RequestParam(value = "countyName", required = false) String countyName,
                               ModelMap model, HttpServletRequest req, HttpServletResponse res) {
             return localityService.getLocalitiesByCountyForJson(countyName);
+    }
+
+
+    @RequestMapping(value = "/shop/contact" , method = RequestMethod.GET)
+    public ModelAndView contact (ModelMap model, HttpServletRequest req, HttpServletResponse res) {
+
+        User loggedUser = getCurrentUser();
+        model.put("loggedUser", loggedUser);
+
+        /*CART LIST*/
+        List<Cart> cartList = cartList(loggedUser, req);
+        model.put("cart", cartList);
+
+
+        return new ModelAndView("/shop/contact", model);
     }
 
 
