@@ -45,8 +45,13 @@ public class CartDao extends GenericDao<Cart, Long> implements ICartDao {
         try{
             String sql = "SELECT c FROM Cart c WHERE c.enabled=true " ;
             if (product != null) sql += "and c.product = :product ";
-            if (user == null && session != null) sql += "and c.session = :session ";
-            if (user != null && session != null) sql += "and (c.session = :session or c.user = :user )";
+
+            if (user != null && session != null) {
+                sql += "and (c.session = :session or c.user = :user )";
+            } else if (user == null && session != null) sql += "and c.session = :session ";
+            else if (user != null && session == null) sql += "and c.user = :user ";
+
+
 
             Query query = entityManager.createQuery(sql);
             if (product != null) query.setParameter("product", product);

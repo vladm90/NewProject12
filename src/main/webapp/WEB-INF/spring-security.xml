@@ -13,7 +13,7 @@
     <http security="none" pattern="/js/**"/>
 
 
-    <http auto-config="true"> <!--access-denied-page="/403.jsp"-->
+    <http auto-config="true" request-matcher="regex"> <!--access-denied-page="/403.jsp"-->
         <!--ANONYMOUS-->
         <intercept-url pattern="/register" access="ROLE_ANONYMOUS" requires-channel="http"/>
         <intercept-url pattern="/createAccount" access="ROLE_ANONYMOUS" requires-channel="http"/>
@@ -38,7 +38,13 @@
         <intercept-url pattern="/shop/cart/delete" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/test" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/account/details" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/gallery" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/aboutus" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
         <intercept-url pattern="/shop/contact" access="ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/checkout\?code=login*" access="ROLE_ANONYMOUS" requires-channel="http"/>
+        <intercept-url pattern="/shop/checkout\?code=deliveryDetails*" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/checkout\?code=deliveryMethod*" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
+        <intercept-url pattern="/shop/checkout\?code=confirmOrder*" access="ROLE_USER,ROLE_ADMIN" requires-channel="http"/>
 
 
         <!--USER-->
@@ -55,7 +61,7 @@
 
         <!-- DENY ACCESS TO UNCAUGHT ACTIONS -->
         <!-- Fallback pattern for uncaught actions. Only god can access these, but he does not exist -->
-        <intercept-url pattern="/**/**" access="ROLE_GOD"/>
+      <!--  <intercept-url pattern="/**/**" access="ROLE_GOD"/>-->
 
 
         <!-- access denied page -->
@@ -65,7 +71,7 @@
                 login-processing-url="/j_spring_security_check"
                 default-target-url="/admin"
                 authentication-failure-url="/login?error"
-                authentication-success-handler-ref="loginSucessHandler"
+                authentication-success-handler-ref=" ndler"
                 username-parameter="email"
                 password-parameter="password" />
         <anonymous granted-authority="ROLE_ANONYMOUS" />

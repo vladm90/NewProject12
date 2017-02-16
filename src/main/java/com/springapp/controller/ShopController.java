@@ -200,6 +200,63 @@ public class ShopController extends AbstractController{
         return new ModelAndView("/shop/contact", model);
     }
 
+    @RequestMapping(value = "/shop/gallery" , method = RequestMethod.GET)
+    public ModelAndView gallery (ModelMap model, HttpServletRequest req, HttpServletResponse res) {
+
+        User loggedUser = getCurrentUser();
+        model.put("loggedUser", loggedUser);
+
+        /*CART LIST*/
+        List<Cart> cartList = cartList(loggedUser, req);
+        model.put("cart", cartList);
+
+
+        return new ModelAndView("/shop/gallery", model);
+    }
+
+    @RequestMapping(value = "/shop/aboutus" , method = RequestMethod.GET)
+    public ModelAndView aboutus (ModelMap model, HttpServletRequest req, HttpServletResponse res) {
+
+        User loggedUser = getCurrentUser();
+        model.put("loggedUser", loggedUser);
+
+        /*CART LIST*/
+        List<Cart> cartList = cartList(loggedUser, req);
+        model.put("cart", cartList);
+
+
+        return new ModelAndView("/shop/aboutus", model);
+    }
+
+    @RequestMapping(value = "/shop/checkout" , method = RequestMethod.GET)
+    public ModelAndView checkout (@RequestParam(value = "code", required = false) String code,
+                              ModelMap model, HttpServletRequest req, HttpServletResponse res) {
+
+        User loggedUser = getCurrentUser();
+        model.put("loggedUser", loggedUser);
+
+        /*CART LIST*/
+        List<Cart> cartList = cartList(loggedUser, req);
+        model.put("cart", cartList);
+
+        List<Product> newProductsList = productService.getNewProducts();
+        model.put("newProductsList", newProductsList);
+
+        /*COUNTYS*/
+        List<Locality> county = localityService.getCounties();
+        model.put("county", county);
+
+     /*   if (countyName != null){
+            List<Locality> locality = localityService.getLocalitiesByCounty(countyName);
+            model.put("locality", locality);
+            model.put("countyName", countyName);
+        }*/
+
+        model.put("code", code);
+
+        return new ModelAndView("/shop/checkout", model);
+    }
+
 
 
 

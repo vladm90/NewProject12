@@ -4723,7 +4723,7 @@ select.input-lg {
 }
 
 .checkout-table .item-name-col figure {
-	width:180px;
+	width:100px;
 	float:left;
 	margin-right:20px;
 }
@@ -4739,7 +4739,74 @@ select.input-lg {
 .checkout-table tfoot tr {
 	background:#f8f8f8;
 }
-
+ul.step {
+	margin-bottom: 30px;
+	overflow: hidden
+}
+ul.step li {
+	float: left;
+	width: 25%;
+	text-align: center;
+	border-bottom: 4px solid #eee
+}
+ul.step li a,
+ul.step li span,
+ul.step li.step_current span,
+ul.step li.step_current_end span {
+	display: block;
+	padding: 13px 10px 14px 13px;
+	color: #333;
+	font-size: 17px;
+	line-height: 21px;
+	font-weight: bold;
+	position: relative
+}
+ul.step li a:focus,
+ul.step li span:focus,
+ul.step li.step_current,
+ul.step li.step_current span:focus,
+ul.step li.step_current_end span:focus {
+	text-decoration: none;
+	border-color: #7bae23;
+	outline: none
+}
+ul.step li.first {
+	border-left-color: #b7b7b7
+}
+ul.step li.first span,
+ul.step li.first a {
+	z-index: 5;
+	padding-left: 13px !important;
+	text-align: center
+}
+ul.step li.second span,
+ul.step li.second a {
+	z-index: 4
+}
+ul.step li.third span,
+ul.step li.third a {
+	z-index: 3
+}
+ul.step li.four span,
+ul.step li.four a {
+	z-index: 2
+}
+ul.step li.last span {
+	z-index: 1
+}
+ul.step li.step_current_end {
+	font-weight: bold
+}
+ul.step li.step_todo span {
+	text-align: center;
+	color: #999
+}
+ul.step li em {
+	font-style: normal
+}
+.flexisel-nav:hover {
+	border-color: #7bae23
+}
 
 /* =============================================
 --------------------- Contact.html -----------------

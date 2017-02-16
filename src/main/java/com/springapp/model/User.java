@@ -27,21 +27,21 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "PASSWORD", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
     private String password;
 
-    @Column(name = "FIRST_NAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
+    @Column(name = "FIRST_NAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = true)
     private String firstName;
 
-    @Column(name = "LAST_NAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = false)
+    @Column(name = "LAST_NAME", length = Constants.COLUMN_NORMAL_LENGTH, nullable = true)
     private String lastName;
 
-    @Column(name = "PHONE", length = Constants.COLUMN_SMALLER_LENGTH, nullable = false)
+    @Column(name = "PHONE", length = Constants.COLUMN_SMALLER_LENGTH, nullable = true)
     private String phone;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "LOCALITY")
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "LOCALITY", nullable = true)
     private Locality locality;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "ROLE")
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "ROLE", nullable = true)
     private Role role;
 
     @Column(name = "CREATION_DATE", nullable = false)

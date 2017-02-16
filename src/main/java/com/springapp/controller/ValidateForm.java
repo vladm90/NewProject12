@@ -48,6 +48,7 @@ public class ValidateForm implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "errors.required.field");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "errors.required.field");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "errors.required.field");
 
 
         if (userForm.getFirstName() != null && userForm.getFirstName().length() <= 2 && !userForm.getFirstName().equals("")) {
@@ -77,6 +78,10 @@ public class ValidateForm implements Validator {
         if(userForm.getLocality().toString().equals("-")){
             errors.rejectValue("locality", "errors.required.field.locality");
             errors.rejectValue("county", "errors.required.field.county");
+        }
+
+        if(!userForm.getPhone().matches("[0-9]+")){
+            errors.rejectValue("phone", "errors.required.field.phone");
         }
 
 

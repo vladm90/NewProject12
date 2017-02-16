@@ -80,6 +80,7 @@
   <script src="/js/jquery.themepunch.revolution.min.js"></script>
   <script src="/js/colpick.js"></script>
   <script src="/js/csrf_ajax.js"></script>
+  <script src="/js/jquery.parallax-1.1.3.js"></script>
 
 
 
@@ -265,7 +266,14 @@
                 <li><a href="#" title="My Wishlist"><span class="top-icon top-icon-pencil"></span><span class="hide-for-xs">My Wishlist</span></a></li>
                 <li><a href="/account/details" title="My Account"><span class="top-icon top-icon-user"></span><span class="hide-for-xs">My Account</span></a></li>
                 <li><a href="/shop/cart" title="My Cart"><span class="top-icon top-icon-cart"></span><span class="hide-for-xs">My Cart</span></a></li>
-                <li><a href="checkout.html" title="Checkout"><span class="top-icon top-icon-check"></span><span class="hide-for-xs">Checkoaut</span></a></li>
+                <c:choose>
+                  <c:when test="${loggedUser eq null}">
+                    <li><a href="/shop/checkout?code=login" title="Checkout"><span class="top-icon top-icon-check"></span><span class="hide-for-xs">Checkout</span></a></li>
+                  </c:when>
+                  <c:otherwise>
+                    <li><a href="/shop/checkout?code=deliveryDetails" title="Checkout"><span class="top-icon top-icon-check"></span><span class="hide-for-xs">Checkout</span></a></li>
+                  </c:otherwise>
+                </c:choose>
                 <li><a href="/test" title="asd"><span class="top-icon top-icon-check"></span><span class="hide-for-xs">TEST</span></a></li>
               </ul>
             </div><!-- End .header-top-left -->
@@ -284,11 +292,11 @@
                 <div class="btn-group dropdown-language">
                   <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
                     <span class="flag-container"><img src="/images/romania-flag.png" alt="flag of romania"></span>
-                    <span class="hide-for-xs">Romana</span>
+
                   </button>
                   <ul class="dropdown-menu pull-right" role="menu">
-                    <li><a href="#"><span class="flag-container"><img src="/images/england-flag.png" alt="flag of england"></span><span class="hide-for-xs">English</span></a></li>
-                    <li><a href="#"><span class="flag-container"><img src="/images/romania-flag.png" alt="flag of romania"></span><span class="hide-for-xs">Romana</span></a></li>
+                    <li><a href="#"><span class="flag-container"><img src="/images/england-flag.png" alt="flag of england"></span></a></li>
+                    <li><a href="#"><span class="flag-container"><img src="/images/romania-flag.png" alt="flag of romania"></span></a></li>
                   </ul>
                 </div><!-- End .btn-group -->
               </div><!-- End .header-top-dropdowns -->
@@ -309,7 +317,6 @@
                         <li><a href="#"><span class="hide-for-xs">plm</span><span class="hide-for-lg">plm</span></a></li>
                         <li><a href="javascript:formSubmit()"><span class="glyphicon glyphicon-log-out"></span><span class="hide-for-xs"> Logout</span><span class="hide-for-lg"> Logout</span></a></li>
                         <c:url value="/j_spring_security_logout" var="logoutUrl" />
-
                         <form action="${logoutUrl}" method="post" id="logoutForm">
                           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
@@ -432,38 +439,8 @@
                     </div><!-- End .mega-menu -->
                   </li>
 
-                  <li>
-                    <a href="#">PAGES</a>
-                    <ul>
-                      <li><a href="cart.html">Cart</a></li>
-                      <li><a href="category.html">Category</a>
-                        <ul>
-                          <li><a href="category-list.html">Category list</a></li>
-                          <li><a href="category.html">Category Banner 1</a></li>
-                          <li><a href="category-banner-2.html">Category Banner 2</a></li>
-                          <li><a href="category-banner-3.html">Category Banner 3</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="checkout.html">Checkout</a></li>
-                      <li><a href="aboutus.html">About Us</a></li>
-                      <li><a href="register-account.html">Register Account</a></li>
-                      <li><a href="compare-products.html">Compare Products</a></li>
-                      <li><a href="404.html">404 Page</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Portfolio</a>
-                    <ul>
-                      <li><a href="portfolio-2.html">Two Columns</a></li>
-                      <li><a href="portfolio-3.html">Three Columns</a></li>
-                      <li><a href="portfolio-4.html">Four Columns</a></li>
-                      <li><a href="single-portfolio.html">Portfolio Post</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="blog.html">Blog</a>
-                    <ul>
-                      <li><a href="single.html">Blog Post</a></li>
-                    </ul>
-                  </li>
+                  <li><a href="/shop/gallery">Gallery</a></li>
+                  <li><a href="/shop/aboutus">About Us</a></li>
                   <li><a href="/shop/contact">Contact Us</a></li>
                 </ul>
 
@@ -515,7 +492,16 @@
                            </ul><!-- .dropdown-cart-total -->
                            <div class="dropdown-cart-action">
                              <p><a href="/shop/cart" class="btn btn-custom-2 btn-block">Cart</a></p>
-                             <p><a href="checkout.html" class="btn btn-custom btn-block">Checkout</a></p>
+                             <p>
+                               <c:choose>
+                                 <c:when test="${loggedUser eq null}">
+                                   <a href="/shop/checkout?code=login" class="btn btn-custom btn-block">CHECKOUT</a>
+                                 </c:when>
+                                 <c:otherwise>
+                                   <a href="/shop/checkout?code=deliveryDetails" class="btn btn-custom btn-block">CHECKOUT</a>
+                                 </c:otherwise>
+                               </c:choose>
+                             </p>
                            </div><!-- End .dropdown-cart-action -->
                           </c:otherwise>
                         </c:choose>

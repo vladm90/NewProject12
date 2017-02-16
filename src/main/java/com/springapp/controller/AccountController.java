@@ -5,6 +5,7 @@ import com.springapp.model.Locality;
 import com.springapp.model.Role;
 import com.springapp.model.User;
 import com.springapp.service.ILocalityService;
+import com.springapp.service.IRoleService;
 import com.springapp.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class AccountController extends AbstractController {
 
     @Autowired
     private ILocalityService localityService;
+
+    @Autowired
+    private IRoleService roleService;
 
 
 
@@ -90,9 +94,7 @@ public class AccountController extends AbstractController {
         user.setLocality(locality);
         user.setFbPicture("/images/icons/usericon.png");
 
-        Role role = new Role();
-        role.setId(2L);
-        user.setRole(role);
+        user.setRole(roleService.findById(2L));
         userService.save(user);
 
         User u = userService.getByEmail(null, user.getEmail());

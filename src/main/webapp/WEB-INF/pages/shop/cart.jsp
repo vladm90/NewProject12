@@ -206,7 +206,15 @@
                   </table>
                   <div class="md-margin"></div><!-- End .space -->
                   <a href="/shop/products" class="btn btn-custom-2">CONTINUE SHOPPING</a>
-                  <a href="#" class="btn btn-custom">CHECKOUT</a>
+                  <c:choose>
+                    <c:when test="${loggedUser eq null}">
+                      <a href="/shop/checkout?code=login" class="btn btn-custom">CHECKOUT</a>
+                    </c:when>
+                    <c:otherwise>
+                      <a href="/shop/checkout?code=deliveryDetails" class="btn btn-custom">CHECKOUT</a>
+                    </c:otherwise>
+                  </c:choose>
+
                 </div><!-- End .col-md-4 -->
               </div><!-- End .row -->
               <div class="lg-margin2x"></div><!-- Space -->

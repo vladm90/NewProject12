@@ -112,7 +112,7 @@
               </div><!-- End .header-top-dropdowns -->
 
               <div class="header-text-container pull-right">
-                <p class="header-text">Welcome to Venedor!</p>
+                <p class="header-text">Welcome to Venedor! PAGINA NU ESTE OK NU ARE HEADER AND FOOTER</p>
                 <p class="header-link"><a href="#">login</a>&nbsp;or&nbsp;<a href="#">create an account</a></p>
               </div><!-- End .pull-right -->
             </div><!-- End .header-top-right -->
@@ -142,7 +142,7 @@
             <div class="header-box contact-phones pull-right clearfix">
               <span class="header-box-icon header-box-icon-earphones"></span>
               <ul class="pull-left">
-                <li>Cristian: +(40) 733 020 329</li>
+                <li>Cristian: +(40) 733 020 329  PAGINA NU ESTE OK NU ARE HEADER AND FOOTER</li>
                 <li>Corina: +(40) 723 232 749</li>
               </ul>
             </div><!-- End .contact-phones -->
@@ -465,11 +465,11 @@
             <ul class="contact-list">
               <li><strong>Producator</strong></li>
               <li>Motoroiu Cristin</li>
+              <li>Adresa: Str. Colinei 23A</li>
               <li>Oras Breaza, Prahova</li>
-              <li>Str. Colinei 23A</li>
               <li>Tel: Cristian: +(40) 733 020 329</li>
               <li>Tel: Corina: +(40) 723 232 749</li>
-              <li>E-Mail:c.motoroiu@yahoo.com</li>
+              <li>E-Mail: c.motoroiu@yahoo.com</li>
             </ul>
           </div><!-- End .widget -->
 

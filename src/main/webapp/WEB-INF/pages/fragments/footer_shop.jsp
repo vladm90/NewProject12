@@ -64,7 +64,7 @@
                   <li>Str. Colinei 23A</li>
                   <li>Tel: Cristian: +(40) 733 020 329</li>
                   <li>Tel: Corina: +(40) 723 232 749</li>
-                  <li>E-Mail:c.motoroiu@yahoo.com</li>
+                  <li>E-Mail: c.motoroiu@yahoo.com</li>
                 </ul>
               </div><!-- End .widget -->
 

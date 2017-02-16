@@ -160,9 +160,9 @@ public class MainController extends AbstractController{
     public ModelAndView changePassword(@ModelAttribute("form") UserFacebook userFacebook,
                                        ModelMap model,HttpServletRequest req, HttpServletResponse res) {
 
-        //validare parola + parola2
-
-        //check if email exist
+        //TODO validare parola + parola2
+        //todo trebuie sa intre pe aici doar cand creaza un nou user, pt change password trebuie alta
+        //TODO check if email exist
 
         //get data
         User user = new User();
@@ -170,9 +170,7 @@ public class MainController extends AbstractController{
 
         user.setFbId(null);
 
-        Role role = new Role();
-        role.setId(2L);
-        user.setRole(role);
+        user.setRole(roleService.findById(2L));
 
         // save
         userService.save(user);
